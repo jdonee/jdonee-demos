@@ -5,6 +5,6 @@ import com.jdonee.insight.domain.demo.User;
 import com.jdonee.insight.util.mybatis.MyBatisRepository;
 
 @MyBatisRepository
-public interface UserDao extends BaseDao<User> {
+public interface UserDao extends BaseDao<User, Long> {
 
 }

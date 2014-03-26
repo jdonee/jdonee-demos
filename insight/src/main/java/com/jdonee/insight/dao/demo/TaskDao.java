@@ -5,6 +5,6 @@ import com.jdonee.insight.domain.demo.Task;
 import com.jdonee.insight.util.mybatis.MyBatisRepository;
 
 @MyBatisRepository
-public interface TaskDao extends BaseDao<Task> {
+public interface TaskDao extends BaseDao<Task, Long> {
 
 }

@@ -11,11 +11,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.ImmutableList;
 import com.jdonee.insight.domain.IdEntity;
+import com.jdonee.insight.util.mybatis.MyBatisTableName;
 import com.jdonee.insight.util.mybatis.MyBatisTransient;
 
+@MyBatisTableName(name = "tb_user")
 public class User extends IdEntity {
-
-	public static final String tableName = "tb_user";
 
 	@NotBlank
 	private String loginName;

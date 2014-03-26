@@ -4,10 +4,10 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.jdonee.insight.domain.IdEntity;
+import com.jdonee.insight.util.mybatis.MyBatisTableName;
 
+@MyBatisTableName(name = "tb_task")
 public class Task extends IdEntity {
-
-	public static final String tableName = "tb_task";
 
 	private String title;
 

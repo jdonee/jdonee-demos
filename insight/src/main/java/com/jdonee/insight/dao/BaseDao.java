@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  * @param <T>
  */
 @Component
-public interface BaseDao<T> extends Serializable {
+public interface BaseDao<T, PK extends Serializable> extends Serializable {
 
 	final static String MAPPER_ID = "id";
 
@@ -55,7 +55,7 @@ public interface BaseDao<T> extends Serializable {
 	 * @throws
 	 */
 
-	int delete(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_ID) Long id);
+	int delete(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_ID) PK id);
 
 	/**
 	 * @Description: 修改数据对象
@@ -71,7 +71,7 @@ public interface BaseDao<T> extends Serializable {
 	 * @return T
 	 * @throws
 	 */
-	T findOneById(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_ID) Long id);
+	T findOneById(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_ID) PK id);
 
 	/**
 	 * @Description: 查询所有数据
@@ -148,5 +148,5 @@ public interface BaseDao<T> extends Serializable {
 	 * @return
 	 * @throws
 	 */
-	int deleteBatch(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_LIST) List<T> list);
+	int deleteBatch(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_LIST) List<PK> list);
 }

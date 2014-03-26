@@ -10,13 +10,26 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 标识MyBatis的非数据库字段，方便分析字段
+ * 标识MyBatis的表名称
  * 
  * @author Jdonee
  * 
  */
-@Target({ METHOD, FIELD })
+@Target({ TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MyBatisTransient {
-	String value() default "";
+public @interface MyBatisTableName {
+
+	/**
+	 * 单表名称
+	 * 
+	 * @return
+	 */
+	String name() default "";
+
+	/**
+	 * 多表名称(可选)
+	 * 
+	 * @return
+	 */
+	String names() default "";
 }
