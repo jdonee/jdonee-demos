@@ -9,21 +9,20 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.jdonee.insight.spring.Profiles;
-import com.jdonee.insight.spring.SpringContextTestCase;
+import com.jdonee.insight.spring.SpringTransactionalTestCase;
 import com.jdonee.insight.util.commons.GenericsUtils;
-import com.jdonee.insight.util.commons.Reflections;
 import com.jdonee.insight.util.mybatis.MyBatisTableName;
 
 /**
- * 单元测试基类
+ * 事务单元测试基类
  * 
  * @author ZengAihui
  * 
  */
 @DirtiesContext
-@ActiveProfiles(Profiles.DEVELOPMENT)
+@ActiveProfiles(Profiles.UNIT_TEST)
 @ContextConfiguration(locations = { "/applicationContext.xml", "/spring-mybatis.xml" })
-public abstract class BaseJunitSTTestCase<T> extends SpringContextTestCase {
+public abstract class BaseJunitSTTestCase<T> extends SpringTransactionalTestCase {
 
 	protected String tableName;
 
@@ -31,12 +30,11 @@ public abstract class BaseJunitSTTestCase<T> extends SpringContextTestCase {
 
 	@Before
 	public void setUp() {
-		this.entityClass = GenericsUtils.getSuperClassGenricType(this.getClass());
+		entityClass = GenericsUtils.getSuperClassGenricType(this.getClass());
 		MyBatisTableName table = entityClass.getAnnotation(MyBatisTableName.class);
 		if (null == table) {
 			throw new RuntimeException("类-" + this.entityClass + ",未用@MyBatisTableName注解标识!!");
 		}
 		tableName = table.name();
-		Reflections.invokeSetter(this.entityClass, "tableName", table.name());
 	}
 }

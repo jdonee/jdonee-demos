@@ -45,10 +45,10 @@ public class TaskDaoTest extends BaseJunitSTTestCase<Task> {
 		assertThat(taskPage.getResult()).isEmpty();
 	}
 
-	@Rollback(true)
 	@Test
+	@Rollback(true)
 	public void save() {
 		int result = taskDao.save(TaskData.randomTask());
-		assertThat(result).equals(1);
+		assertThat(result).isEqualTo(1);
 	}
 }

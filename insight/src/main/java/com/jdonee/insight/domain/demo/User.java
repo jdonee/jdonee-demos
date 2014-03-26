@@ -1,5 +1,6 @@
 package com.jdonee.insight.domain.demo;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,9 @@ import com.jdonee.insight.util.mybatis.MyBatisTableName;
 import com.jdonee.insight.util.mybatis.MyBatisTransient;
 
 @MyBatisTableName(name = "tb_user")
-public class User extends IdEntity {
+public class User extends IdEntity implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@NotBlank
 	private String loginName;
@@ -41,6 +44,9 @@ public class User extends IdEntity {
 	private Date registerDate;
 
 	public User() {
+		super();
+		MyBatisTableName table = this.getClass().getAnnotation(MyBatisTableName.class);
+		this.tableName = table.name();
 	}
 
 	public User(Long id) {

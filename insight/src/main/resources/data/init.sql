@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS tb_task;
 CREATE TABLE tb_task (
   id bigint(20) NOT NULL AUTO_INCREMENT,
   title varchar(100) COLLATE utf8_bin NOT NULL,
-  description varchar(500) COLLATE utf8_bin NOT NULL,
+  description varchar(500) COLLATE utf8_bin NULL,
   user_id bigint(20) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

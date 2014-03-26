@@ -22,6 +22,12 @@ public abstract class IdEntity {
 	@MyBatisTransient
 	protected String tableName;
 
+	/**
+	 * 保存时写入表(组合)名称
+	 */
+	@MyBatisTransient
+	protected String tableNames;
+
 	public Long getId() {
 		return id;
 	}

@@ -9,8 +9,8 @@ echo [Step 1] Init project database to ready develope.
 
 cd %~dp0
 cd ..
-call mvn clean test -Pcreate-db
-call mvn clean test -Pinit-db
+call mvn clean test -Dmaven.test.skip=true -Pcreate-db
+call mvn clean test -Dmaven.test.skip=true -Pinit-db
 if errorlevel 1 goto error 
 cd bin
 pause
