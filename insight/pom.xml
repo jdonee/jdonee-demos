@@ -223,13 +223,7 @@
 			<version>${slf4j.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-		
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
-		</dependency>
-		
+		 
 		<dependency>
 			<groupId>org.bgee.log4jdbc-log4j2</groupId>
 			<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
@@ -518,7 +512,6 @@
 						<groupId>org.kuali.maven.plugins</groupId>
 						<artifactId>sql-maven-plugin</artifactId>
 						<version>1.8</version>
-
 						<dependencies>
 							<!-- specify the dependent jdbc driver here -->
 							<dependency>

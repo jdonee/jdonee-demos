@@ -17,10 +17,21 @@
 	</appender>
 
 	<!-- project default level -->
-	<logger name="org.jdonee.insight" level="INFO" />
+	<logger name="com.jdonee.insight" level="INFO" />
+	
+	<logger name="com.jdonee.insight.dao" level="INFO" />
+	
+	<logger name="org.apache.shiro" level="INFO" />
 
 	<!--log4jdbc -->
+	<!--打印消耗时间 执行动作和SQL语句 -->
 	<logger name="jdbc.sqltiming" level="INFO"/>
+	<!--把结果集作为表单返回-->
+	<logger name="jdbc.resultsettable" level="INFO"/>
+	<!--记录数据连接的日志 -->
+	<logger name="jdbc.connection" level="INFO"/>
+	<!--记录除结果集以外的所有数据库日志，除非出现JDBC异常，否则不要设置  -->
+	<logger name="jdbc.audit" level="WARN"/>
 
 	<root level="WARN">
 		<appender-ref ref="console" />
