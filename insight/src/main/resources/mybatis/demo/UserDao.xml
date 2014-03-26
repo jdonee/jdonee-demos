@@ -60,7 +60,7 @@
   			id=#{id}
   </update>
 
-  <select id="getById" resultType="User" >
+  <select id="findOneById" resultType="User" >
 	SELECT * 
 		FROM ${tableName} 
 	WHERE 
@@ -68,7 +68,7 @@
 	LIMIT 1
   </select>
   
-   <select id="getAll" resultType="User" >
+   <select id="findAll" resultType="User" >
 	SELECT * 
 		FROM ${tableName} 
   </select>
@@ -80,21 +80,21 @@
   	<include refid="condition"/>
   </select>
   
-  <select id="getPage" resultType="User">
+  <select id="findPageList" resultType="User">
   	SELECT * 
 		FROM ${tableName} 
   	<include refid="condition"/>
   </select>
   
   <!--自定义条件查询-->
-  <select id="getByParams" resultType="User">
+  <select id="findOneByParams" resultType="User">
   	SELECT * FROM 
   		${tableName}
   	<include refid="condition"/>
   	 LIMIT 1
   </select>
   
-  <select id="getListByParams" resultType="User">
+  <select id="findListByParams" resultType="User">
   	SELECT * FROM 
   		${tableName}
   	<include refid="condition"/>

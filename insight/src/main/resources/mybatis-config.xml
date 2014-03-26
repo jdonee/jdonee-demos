@@ -5,7 +5,7 @@
 	
 	<properties>
 		<!-- 分页插件需要拦截的ID(正则匹配) -->
-		<property name="pageSqlId" value=".*Page$"/>
+		<property name="pageSqlId" value=".*PageList$"/>
 		
 	</properties>
 	<settings>

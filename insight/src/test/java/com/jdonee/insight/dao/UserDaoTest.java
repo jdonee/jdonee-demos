@@ -30,14 +30,14 @@ public class UserDaoTest extends BaseJunitSTTestCase {
 		Page<User> userPage = new Page();
 		Map<String, Object> paramsMap = Maps.newHashMap();
 		userPage.setParamsMap(paramsMap);
-		List<User> users = userDao.getPage(User.tableName, userPage.getParamsMap(), new RowBounds(userPage.getOffset(),
-				userPage.getLimit()));
+		List<User> users = userDao.findPageList(User.tableName, userPage.getParamsMap(),
+				new RowBounds(userPage.getOffset(), userPage.getLimit()));
 		userPage.setResult(users);
 		assertThat(userPage.getResult()).hasSize(2);
 		assertThat(userPage.getResult().get(0).getId()).isEqualTo(1);
 		paramsMap.put("id", 99999L);
-		users = userDao.getPage(User.tableName, userPage.getParamsMap(),
-				new RowBounds(userPage.getOffset(), userPage.getLimit()));
+		users = userDao.findPageList(User.tableName, userPage.getParamsMap(), new RowBounds(userPage.getOffset(),
+				userPage.getLimit()));
 		userPage.setResult(users);
 		assertThat(userPage.getResult()).isEmpty();
 		assertThat(userPage.getResult()).isEmpty();
@@ -45,7 +45,7 @@ public class UserDaoTest extends BaseJunitSTTestCase {
 
 	@Test
 	public void getById() throws Exception {
-		User user = userDao.getById(User.tableName, 1L);
+		User user = userDao.findOneById(User.tableName, 1L);
 		assertThat(user.getId()).isEqualTo(1);
 	}
 

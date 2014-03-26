@@ -1,4 +1,4 @@
-package com.jdonee.insight.util.mybatis;
+package com.jdonee.insight.dao;
 
 import java.io.Serializable;
 import java.util.List;
@@ -71,14 +71,14 @@ public interface BaseDao<T> extends Serializable {
 	 * @return T
 	 * @throws
 	 */
-	T getById(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_ID) Long id);
+	T findOneById(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_ID) Long id);
 
 	/**
 	 * @Description: 查询所有数据
 	 * @return List<T>
 	 * @throws
 	 */
-	List<T> getAll(@Param(MAPPER_TABLE_NAME) String tableName);
+	List<T> findAll(@Param(MAPPER_TABLE_NAME) String tableName);
 
 	/**
 	 * @Description: 根据参数列表获取实体对象
@@ -86,7 +86,7 @@ public interface BaseDao<T> extends Serializable {
 	 * @return T
 	 * @throws
 	 */
-	T getByParams(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_PARAMS) Map<String, Object> params);
+	T findOneByParams(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_PARAMS) Map<String, Object> params);
 
 	/**
 	 * @Description: 根据参数列表获取实体对象列表
@@ -94,17 +94,18 @@ public interface BaseDao<T> extends Serializable {
 	 * @return List<T>
 	 * @throws
 	 */
-	List<T> getListByParams(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_PARAMS) Map<String, Object> params);
+	List<T> findListByParams(@Param(MAPPER_TABLE_NAME) String tableName,
+			@Param(MAPPER_PARAMS) Map<String, Object> params);
 
 	/**
-	 * 分页
+	 * 分页集合
 	 * 
 	 * @param tableName
 	 * @param params
 	 * @param rowBounds
 	 * @return
 	 */
-	List<T> getPage(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_PARAMS) Map<String, Object> params,
+	List<T> findPageList(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_PARAMS) Map<String, Object> params,
 			RowBounds rowBounds);
 
 	/**

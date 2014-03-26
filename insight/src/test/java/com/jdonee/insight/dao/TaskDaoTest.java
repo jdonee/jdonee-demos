@@ -30,14 +30,14 @@ public class TaskDaoTest extends BaseJunitSTTestCase {
 		Page<Task> taskPage = new Page();
 		Map<String, Object> paramsMap = Maps.newHashMap();
 		taskPage.setParamsMap(paramsMap);
-		List<Task> tasks = taskDao.getPage(Task.tableName, taskPage.getParamsMap(), new RowBounds(taskPage.getOffset(),
-				taskPage.getLimit()));
+		List<Task> tasks = taskDao.findPageList(Task.tableName, taskPage.getParamsMap(),
+				new RowBounds(taskPage.getOffset(), taskPage.getLimit()));
 		taskPage.setResult(tasks);
 		assertThat(taskPage.getResult()).hasSize(5);
 		assertThat(taskPage.getResult().get(0).getId()).isEqualTo(1);
 		paramsMap.put("id", 99999L);
-		tasks = taskDao.getPage(Task.tableName, taskPage.getParamsMap(),
-				new RowBounds(taskPage.getOffset(), taskPage.getLimit()));
+		tasks = taskDao.findPageList(Task.tableName, taskPage.getParamsMap(), new RowBounds(taskPage.getOffset(),
+				taskPage.getLimit()));
 		taskPage.setResult(tasks);
 		assertThat(taskPage.getResult()).isEmpty();
 		assertThat(taskPage.getResult()).isEmpty();

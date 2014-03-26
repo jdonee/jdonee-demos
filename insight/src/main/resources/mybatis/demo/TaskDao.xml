@@ -57,7 +57,7 @@
   			id=#{id}
   </update>
 
-  <select id="getById" resultType="Task" >
+  <select id="findOneById" resultType="Task" >
 	SELECT * 
 		FROM ${tableName} 
 	WHERE 
@@ -65,7 +65,7 @@
 	LIMIT 1
   </select>
   
-   <select id="getAll" resultType="Task" >
+   <select id="findAll" resultType="Task" >
 	SELECT * 
 		FROM ${tableName} 
   </select>
@@ -77,21 +77,21 @@
   	<include refid="condition"/>
   </select>
   
-  <select id="getPage" resultType="Task">
+  <select id="findPageList" resultType="Task">
   	SELECT * 
 		FROM ${tableName} 
   	<include refid="condition"/>
   </select>
   
   <!--自定义条件查询-->
-  <select id="getByParams" resultType="Task">
+  <select id="findOneByParams" resultType="Task">
   	SELECT * FROM 
   		${tableName}
   	<include refid="condition"/>
   	 LIMIT 1
   </select>
   
-  <select id="getListByParams" resultType="Task">
+  <select id="findListByParams" resultType="Task">
   	SELECT * FROM 
   		${tableName}
   	<include refid="condition"/>
