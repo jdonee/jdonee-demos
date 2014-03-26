@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jdonee.insight.dao.demo.UserDao">
+
+  <cache />
+  
+  <!-- 通用条件和结果语句 -->
+  <sql id="insertElements">
+  		(login_name,password,name,salt,register_date)
+  </sql>
+  
+  <sql id="condition">
+  		<where>
+			<if test="params.loginName!=null">
+				AND login_name=#{params.loginName} 
+			</if>
+			<if test="params.id!=null">
+				AND id=#{params.id} 
+			</if>
+			<if test="params.name!=null">
+				AND name=#{params.name} 
+			</if>
+  		</where>
+  </sql>
+  
+  <!-- 增删改查 -->
+  <insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+  		INSERT INTO ${tableName}
+			<include refid="insertElements"/>
+  		VALUES
+  			(#{loginName},#{password},#{name},#{salt},#{registerDate})
+  </insert>
+  
+  <delete id="delete">
+    DELETE FROM 
+    	${tableName} 
+    WHERE 
+    	id = #{id}
+  </delete>
+  
+  <update id="update" parameterType="User">
+		UPDATE ${tableName}
+	  	<trim prefix="SET" suffixOverrides=",">
+	  			<if test="loginName !=null">
+  				 	login_name=#{loginName},
+  				 </if>
+  				 <if test="password !=null">
+  				 	password=#{password},
+  				 </if>
+  				 <if test="name !=null">
+  				 	name=#{name},
+  				 </if>
+  				 <if test="salt !=null">
+  				 	salt=#{salt},
+  				 </if>
+	  		</trim>
+  		WHERE 
+  			id=#{id}
+  </update>
+
+  <select id="getById" resultType="User" >
+	SELECT * 
+		FROM ${tableName} 
+	WHERE 
+		id = #{id}
+	LIMIT 1
+  </select>
+  
+   <select id="getAll" resultType="User" >
+	SELECT * 
+		FROM ${tableName} 
+  </select>
+
+  <!-- 分页和统计 -->
+  <select id="count" resultType="int">
+  	SELECT count(id) 
+		FROM ${tableName} 
+  	<include refid="condition"/>
+  </select>
+  
+  <select id="getPage" resultType="User">
+  	SELECT * 
+		FROM ${tableName} 
+  	<include refid="condition"/>
+  </select>
+  
+  <!--自定义条件查询-->
+  <select id="getByParams" resultType="User">
+  	SELECT * FROM 
+  		${tableName}
+  	<include refid="condition"/>
+  	 LIMIT 1
+  </select>
+  
+  <select id="getListByParams" resultType="User">
+  	SELECT * FROM 
+  		${tableName}
+  	<include refid="condition"/>
+  </select>
+  
+  <!-- 批量增加\修改\删除 -->
+  <insert id="saveBatch" parameterType="List">
+		INSERT INTO ${tableName}
+			<include refid="insertElements"/>
+  		VALUES
+  			<foreach collection="list" item="item" index="index" separator=",">
+  				(#{item.loginName},#{item.password},#{item.name},#{item.salt},#{item.registerDate})
+  			</foreach>
+   </insert>
+   
+   <update id="updateBatch" parameterType="List">
+		UPDATE ${tableName} 
+		SET
+		<foreach collection="list" item="item" index="index" separator=",">
+				 <if test="item.loginName !=null">
+  				 	login_name=#{item.loginName},
+  				 </if>
+  				 <if test="item.password !=null">
+  				 	password=#{item.password},
+  				 </if>
+  				 <if test="item.name !=null">
+  				 	name=#{item.name},
+  				 </if>
+  				 <if test="salt !=null">
+  				 	salt=#{item.salt},
+  				 </if>
+				WHERE id = #{item.id}
+		</foreach>
+	</update>
+	
+	<delete id="deleteBatch" parameterType="List">
+		DELETE FROM 
+    		${tableName} 
+	    WHERE 
+	    	id IN
+	    		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		        		#{item}
+		    	</foreach>
+	</delete>
+
+</mapper>

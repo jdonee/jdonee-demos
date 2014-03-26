@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.jdonee.insight.util.pagination;
 
 import java.io.Serializable;

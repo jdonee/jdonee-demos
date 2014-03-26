@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
+import org.springframework.stereotype.Component;
 
 /**
  * 数据库操作基础接口，封装了常用的操作函数
@@ -13,7 +15,8 @@ import org.apache.ibatis.annotations.Param;
  * 
  * @param <T>
  */
-public interface BaseMapper<T> extends Serializable {
+@Component
+public interface BaseDao<T> extends Serializable {
 
 	final static String MAPPER_ID = "id";
 
@@ -38,12 +41,44 @@ public interface BaseMapper<T> extends Serializable {
 	static final String MAPPER_PARAMS = "params";
 
 	/**
+	 * @Description: 保存对象
+	 * @param t
+	 * @return
+	 * @throws
+	 */
+	int save(T t);
+
+	/**
+	 * @Description: 根据主键删除数据
+	 * @param id
+	 * @return
+	 * @throws
+	 */
+
+	int delete(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_ID) Long id);
+
+	/**
+	 * @Description: 修改数据对象
+	 * @param t
+	 * @return
+	 * @throws
+	 */
+	int update(T t);
+
+	/**
 	 * @Description: 根据主键获取实体对象
 	 * @param id
 	 * @return T
 	 * @throws
 	 */
-	T getById(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_ID) int id);
+	T getById(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_ID) Long id);
+
+	/**
+	 * @Description: 查询所有数据
+	 * @return List<T>
+	 * @throws
+	 */
+	List<T> getAll(@Param(MAPPER_TABLE_NAME) String tableName);
 
 	/**
 	 * @Description: 根据参数列表获取实体对象
@@ -62,20 +97,24 @@ public interface BaseMapper<T> extends Serializable {
 	List<T> getListByParams(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_PARAMS) Map<String, Object> params);
 
 	/**
-	 * @Description: 查询所有数据
-	 * @return List<T>
-	 * @throws
+	 * 分页
+	 * 
+	 * @param tableName
+	 * @param params
+	 * @param rowBounds
+	 * @return
 	 */
-
-	List<T> getAll(@Param(MAPPER_TABLE_NAME) String tableName);
+	List<T> getPage(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_PARAMS) Map<String, Object> params,
+			RowBounds rowBounds);
 
 	/**
-	 * @Description: 保存对象
-	 * @param t
+	 * 统计
+	 * 
+	 * @param tableNames
+	 * @param params
 	 * @return
-	 * @throws
 	 */
-	int save(T t);
+	int count(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_PARAMS) Map<String, Object> params);
 
 	/**
 	 * 
@@ -100,20 +139,13 @@ public interface BaseMapper<T> extends Serializable {
 	int updateBatch(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_LIST) List<T> list);
 
 	/**
-	 * @Description: 根据主键删除数据
-	 * @param id
+	 * 
+	 * Description: 批量删除
+	 * 
+	 * @param tableName
+	 * @param list
 	 * @return
 	 * @throws
 	 */
-
-	int delete(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_ID) int id);
-
-	/**
-	 * @Description: 修改数据对象
-	 * @param t
-	 * @return
-	 * @throws
-	 */
-	int update(T t);
-
+	int deleteBatch(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_LIST) List<T> list);
 }

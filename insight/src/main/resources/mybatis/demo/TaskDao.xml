@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jdonee.insight.dao.demo.TaskDao">
+
+  <cache />
+  
+  <!-- 通用条件和结果语句 -->
+  <sql id="insertElements">
+  		(title,description,user_id)
+  </sql>
+  
+  <sql id="condition">
+  		<where>
+			<if test="params.title!=null">
+				AND title=#{params.title} 
+			</if>
+			<if test="params.id!=null">
+				AND id=#{params.id} 
+			</if>
+			<if test="params.userId!=null">
+				AND user_id=#{params.userId} 
+			</if>
+  		</where>
+  </sql>
+  
+  <!-- 增删改查 -->
+  <insert id="save" parameterType="Task" useGeneratedKeys="true" keyProperty="id">
+  		INSERT INTO ${tableName}
+			<include refid="insertElements"/>
+  		VALUES
+  			(#{title},#{description},#{user.id})
+  </insert>
+  
+  <delete id="delete">
+    DELETE FROM 
+    	${tableName} 
+    WHERE 
+    	id = #{id}
+  </delete>
+  
+  <update id="update" parameterType="Task">
+		UPDATE ${tableName}
+	  	<trim prefix="SET" suffixOverrides=",">
+	  			<if test="title!=null">
+					AND title=#{title} 
+				</if>
+				<if test="description!=null">
+					AND description=#{description} 
+				</if>
+				<if test="user.id!=null">
+					AND user_id=#{user.id} 
+				</if>
+	  		</trim>
+  		WHERE 
+  			id=#{id}
+  </update>
+
+  <select id="getById" resultType="Task" >
+	SELECT * 
+		FROM ${tableName} 
+	WHERE 
+		id = #{id}
+	LIMIT 1
+  </select>
+  
+   <select id="getAll" resultType="Task" >
+	SELECT * 
+		FROM ${tableName} 
+  </select>
+
+  <!-- 分页和统计 -->
+  <select id="count" resultType="int">
+  	SELECT count(id) 
+		FROM ${tableName} 
+  	<include refid="condition"/>
+  </select>
+  
+  <select id="getPage" resultType="Task">
+  	SELECT * 
+		FROM ${tableName} 
+  	<include refid="condition"/>
+  </select>
+  
+  <!--自定义条件查询-->
+  <select id="getByParams" resultType="Task">
+  	SELECT * FROM 
+  		${tableName}
+  	<include refid="condition"/>
+  	 LIMIT 1
+  </select>
+  
+  <select id="getListByParams" resultType="Task">
+  	SELECT * FROM 
+  		${tableName}
+  	<include refid="condition"/>
+  </select>
+  
+  <!-- 批量增加\修改\删除 -->
+  <insert id="saveBatch" parameterType="List">
+		INSERT INTO ${tableName}
+			<include refid="insertElements"/>
+  		VALUES
+  			<foreach collection="list" item="item" index="index" separator=",">
+  				(#{item.title},#{item.description},#{user.id})
+  			</foreach>
+   </insert>
+   
+   <update id="updateBatch" parameterType="List">
+		UPDATE ${tableName} 
+		SET
+		<foreach collection="list" item="item" index="index" separator=",">
+				 <if test="item.title!=null">
+					AND title=#{item.title} 
+				</if>
+				<if test="item.description!=null">
+					AND description=#{description} 
+				</if>
+				<if test="item.user.id!=null">
+					AND user_id=#{item.user.id} 
+				</if>
+				WHERE id = #{item.id}
+		</foreach>
+	</update>
+	
+	<delete id="deleteBatch" parameterType="List">
+		DELETE FROM 
+    		${tableName} 
+	    WHERE 
+	    	id IN
+	    		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		        		#{item}
+		    	</foreach>
+	</delete>
+
+</mapper>

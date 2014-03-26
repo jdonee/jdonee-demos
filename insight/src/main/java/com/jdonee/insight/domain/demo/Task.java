@@ -1,11 +1,13 @@
-package com.jdonee.insight.domain;
+package com.jdonee.insight.domain.demo;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.jdonee.insight.domain.IdEntity;
+
 public class Task extends IdEntity {
 
-	public static final String TABLE_NAME = "tb_task";
+	public static final String tableName = "tb_task";
 
 	private String title;
 
