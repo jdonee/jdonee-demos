@@ -1,4 +1,4 @@
-package com.jdonee.insight.util.pagination;
+package com.jdonee.insight.util.mybatis;
 
 import java.io.Serializable;
 import java.sql.Connection;
@@ -41,7 +41,7 @@ public class PaginationInterceptor implements Interceptor, Serializable {
 
 	private static final ObjectFactory DEFAULT_OBJECT_FACTORY = new DefaultObjectFactory();
 	private static final ObjectWrapperFactory DEFAULT_OBJECT_WRAPPER_FACTORY = new DefaultObjectWrapperFactory();
-	private static final String DEFAULT_PAGE_SQL_ID = ".*Page$"; // 需要拦截的ID(正则匹配)
+	private static final String DEFAULT_PAGE_SQL_ID = ".*PageList$"; // 需要拦截的ID(正则匹配)
 
 	@Override
 	public Object intercept(Invocation invocation) throws Exception {
@@ -66,7 +66,7 @@ public class PaginationInterceptor implements Interceptor, Serializable {
 		// 设置pageSqlId
 		String pageSqlId = configuration.getVariables().getProperty("pageSqlId");
 		if ((null == pageSqlId) || "".equals(pageSqlId)) {
-			logger.warn("Property pageSqlId is not setted,use default '.*Page$' ");
+			logger.warn("Property pageSqlId is not setted,use default '.*PageList$' ");
 			pageSqlId = DEFAULT_PAGE_SQL_ID;
 		}
 

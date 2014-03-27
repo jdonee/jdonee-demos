@@ -7,9 +7,9 @@
      	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
      	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd"
 	default-lazy-init="true">
-
+	
 	<!-- mybatis 分页拦截 -->
-	<bean id="paginationInterceptor" class="com.jdonee.insight.util.pagination.PaginationInterceptor" />
+	<bean id="paginationInterceptor" class="com.jdonee.insight.util.mybatis.PaginationInterceptor" />
 
 	<!-- MyBatis配置 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

@@ -5,6 +5,7 @@
  *******************************************************************************/
 package com.jdonee.insight.domain;
 
+import com.jdonee.insight.util.mybatis.MyBatisTableName;
 import com.jdonee.insight.util.mybatis.MyBatisTransient;
 
 /**
@@ -27,6 +28,13 @@ public abstract class IdEntity {
 	 */
 	@MyBatisTransient
 	protected String tableNames;
+
+	public IdEntity() {
+		super();
+		MyBatisTableName table = this.getClass().getAnnotation(MyBatisTableName.class);
+		this.tableName = table.name();
+		this.tableNames = table.names();
+	}
 
 	public Long getId() {
 		return id;

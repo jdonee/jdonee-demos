@@ -19,13 +19,6 @@ public class Task extends IdEntity implements Serializable {
 
 	private User user;
 
-	public Task() {
-		super();
-		MyBatisTableName table = this.getClass().getAnnotation(MyBatisTableName.class);
-		this.tableName = table.name();
-		this.tableNames = table.names();
-	}
-
 	// JSR303 BeanValidator的校验规则
 	@NotBlank
 	public String getTitle() {

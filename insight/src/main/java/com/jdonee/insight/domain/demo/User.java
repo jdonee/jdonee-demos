@@ -45,8 +45,6 @@ public class User extends IdEntity implements Serializable {
 
 	public User() {
 		super();
-		MyBatisTableName table = this.getClass().getAnnotation(MyBatisTableName.class);
-		this.tableName = table.name();
 	}
 
 	public User(Long id) {
