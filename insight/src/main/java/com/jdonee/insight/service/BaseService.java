@@ -25,7 +25,7 @@ public abstract class BaseService<T, PK extends Serializable> {
 
 	private Class<T> entityClass;
 
-	private String tableName;
+	protected String tableName;
 
 	public BaseService() {
 		super();
