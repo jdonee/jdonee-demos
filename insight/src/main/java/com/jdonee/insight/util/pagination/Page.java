@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -150,6 +151,94 @@ public class Page<T> implements Serializable {
 
 	public void setPageSort(Sort pageSort) {
 		this.pageSort = pageSort;
+	}
+
+	/**
+	 * @author ZengAihui
+	 * 
+	 */
+	public static class Sort implements Serializable {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		// 排序项
+		private String sortItem;
+		// 对应的数据库字段
+		private String sortColumn;
+		// 降序
+		private boolean desc;
+
+		public Sort(String sortItem, String sortColumn, boolean desc) {
+			super();
+			this.sortItem = sortItem;
+			this.sortColumn = sortColumn;
+			this.desc = desc;
+		}
+
+		public String getSortColumn() {
+			return sortColumn;
+		}
+
+		public void setSortColumn(String sortColumn) {
+			this.sortColumn = sortColumn;
+		}
+
+		public String getSortItem() {
+			return sortItem;
+		}
+
+		public void setSortItem(String sortItem) {
+			this.sortItem = sortItem;
+		}
+
+		public boolean isDesc() {
+			return desc;
+		}
+
+		public void setDesc(boolean desc) {
+			this.desc = desc;
+		}
+
+		@Override
+		public String toString() {
+			return sortColumn;
+		}
+
+		/**
+		 * 重载hashCode,只计算sortColumn;
+		 */
+		@Override
+		public int hashCode() {
+			return Objects.hashCode(sortColumn);
+		}
+
+		/**
+		 * 重载equals,只计算sortColumn;
+		 */
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj) {
+				return true;
+			}
+			if (obj == null) {
+				return false;
+			}
+			if (getClass() != obj.getClass()) {
+				return false;
+			}
+			Sort other = (Sort) obj;
+			if (sortColumn == null) {
+				if (other.sortColumn != null) {
+					return false;
+				}
+			} else if (!sortColumn.equals(other.sortColumn)) {
+				return false;
+			}
+			return true;
+		}
+
 	}
 
 }
