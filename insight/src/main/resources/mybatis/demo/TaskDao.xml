@@ -103,7 +103,7 @@
 			<include refid="insertElements"/>
   		VALUES
   			<foreach collection="list" item="item" index="index" separator=",">
-  				(#{item.title},#{item.description},#{user.id})
+  				(#{item.title},#{item.description},#{item.user.id})
   			</foreach>
    </insert>
    
@@ -115,7 +115,7 @@
 					AND title=#{item.title} 
 				</if>
 				<if test="item.description!=null">
-					AND description=#{description} 
+					AND description=#{item.description} 
 				</if>
 				<if test="item.user.id!=null">
 					AND user_id=#{item.user.id} 
@@ -134,12 +134,57 @@
 		    	</foreach>
 	</delete>
 	
-	<!-- -------------------------------------多表查询和自定义处理----------------------------------------------- -->
-	
+	<!-- 多表查询和自定义处理-->
 	<delete id="deleteBatchByParams">
 		DELETE FROM 
     		${tableName}
     	<include refid="condition"/>
 	</delete>
+	
+	<resultMap type="Task" id="taskMap">
+		<id property="id" column="r_id" />
+  		<result property="title" column="r_title"/>
+  		<result property="description" column="r_description"/>
+  		<association property="user" javaType="User">
+  			<id property="id" column="id"/>
+  			<result property="name" column="name"/>
+  		</association>
+	</resultMap>
+	
+	<sql id="resultTask">
+		t.id r_id,
+		t.title r_title,
+		t.description r_description,
+		u.id id,
+		u.name name
+	</sql>
+	
+	<sql id="conditionTask">
+  		<where>
+  			t.user_id=u.id
+			<if test="params.title!=null">
+				AND t.title=#{params.title} 
+			</if>
+			<if test="params.id!=null">
+				AND t.id=#{params.id} 
+			</if>
+			<if test="params.userId!=null">
+				AND t.user_id=#{params.userId} 
+			</if>
+  		</where>
+  </sql>
+  
+  <select id="countTask" resultType="int">
+  	SELECT count(t.id) 
+		FROM ${tableNames} 
+  	<include refid="conditionTask"/>
+  </select>
+  
+  <select id="findTaskPageList" resultMap="taskMap">
+  	SELECT 
+  	<include refid="resultTask"/> 
+		FROM ${tableNames} 
+  	<include refid="conditionTask"/>
+  </select>
 	
 </mapper>
