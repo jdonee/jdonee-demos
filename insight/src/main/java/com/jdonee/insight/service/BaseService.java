@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.jdonee.insight.dao.BaseDao;
 import com.jdonee.insight.util.commons.GenericsUtils;
@@ -17,7 +16,6 @@ import com.jdonee.insight.util.pagination.Page;
  * @author ZengAihui
  * 
  */
-@Component
 public abstract class BaseService<T, PK extends Serializable> {
 
 	@Autowired
@@ -37,47 +35,47 @@ public abstract class BaseService<T, PK extends Serializable> {
 		tableName = table.name();
 	}
 
-	protected int save(T t) {
+	public int save(T t) {
 		return baseDao.save(t);
 	}
 
-	protected int delete(PK id) {
+	public int delete(PK id) {
 		return baseDao.delete(tableName, id);
 	}
 
-	protected int update(T t) {
+	public int update(T t) {
 		return baseDao.update(t);
 	}
 
-	protected List<T> findAll() {
+	public List<T> findAll() {
 		return baseDao.findAll(tableName);
 	}
 
-	protected T findOneById(PK id) {
+	public T findOneById(PK id) {
 		return baseDao.findOneById(tableName, id);
 	}
 
-	protected int saveBatch(List<T> list) {
+	public int saveBatch(List<T> list) {
 		return baseDao.saveBatch(tableName, list);
 	}
 
-	protected int deleteBatch(List<PK> list) {
+	public int deleteBatch(List<PK> list) {
 		return baseDao.deleteBatch(tableName, list);
 	}
 
-	protected int updateBatch(List<T> list) {
+	public int updateBatch(List<T> list) {
 		return baseDao.updateBatch(tableName, list);
 	}
 
-	protected T findOneByParams(Map params) {
+	public T findOneByParams(Map params) {
 		return baseDao.findOneByParams(tableName, params);
 	}
 
-	protected List<T> findListByParams(Map params) {
+	public List<T> findListByParams(Map params) {
 		return baseDao.findListByParams(tableName, params);
 	}
 
-	protected Page<T> findPage(Page<T> page) {
+	public Page<T> findPage(Page<T> page) {
 		page.setDataCount(count(page.getParamsMap()));
 		RowBounds rowBounds = new RowBounds(page.getOffset(), page.getLimit());// 使用RowBounds计算偏移量和偏移总数
 		List<T> pageList = baseDao.findPageList(tableName, page.getParamsMap(), rowBounds);
@@ -85,7 +83,7 @@ public abstract class BaseService<T, PK extends Serializable> {
 		return page;
 	}
 
-	protected int count(Map params) {
+	public int count(Map params) {
 		return baseDao.count(tableName, params);
 	}
 }

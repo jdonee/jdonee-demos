@@ -55,6 +55,11 @@ public class Page<T> implements Serializable {
 		this.pageSize = pageSize;
 	}
 
+	public Page(int pageSize, int currentPage) {
+		this.pageSize = pageSize;
+		this.currentPage = currentPage;
+	}
+
 	// 获取offset
 	public int getOffset() {
 		return (currentPage - 1) * pageSize;
