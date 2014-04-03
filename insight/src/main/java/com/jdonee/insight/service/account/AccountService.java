@@ -3,8 +3,9 @@
  */
 package com.jdonee.insight.service.account;
 
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 import com.jdonee.insight.domain.demo.User;
 import com.jdonee.insight.service.BaseService;
+import com.jdonee.insight.service.BusinessLogger;
 import com.jdonee.insight.service.ServiceException;
-import com.jdonee.insight.service.account.ShiroDbRealm.ShiroUser;
 import com.jdonee.insight.service.task.TaskService;
 import com.jdonee.insight.util.commons.Clock;
 import com.jdonee.insight.util.commons.Encodes;
@@ -42,6 +44,8 @@ public class AccountService extends BaseService<User, Long> {
 
 	private TaskService taskService;
 
+	private BusinessLogger businessLogger;
+
 	/**
 	 * 用户注册
 	 * 
@@ -52,6 +56,10 @@ public class AccountService extends BaseService<User, Long> {
 		user.setRoles("user");
 		user.setRegisterDate(clock.getCurrentDate());
 		this.save(user);
+		// 业务日志演示
+		Map logData = Maps.newHashMap();
+		logData.put("userId", user.getId());
+		businessLogger.log("USER", "UPDATE", getCurrentUserName(), logData);
 	}
 
 	/**
@@ -99,14 +107,6 @@ public class AccountService extends BaseService<User, Long> {
 	}
 
 	/**
-	 * 取出Shiro中的当前用户LoginName.
-	 */
-	private String getCurrentUserName() {
-		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-		return user.loginName;
-	}
-
-	/**
 	 * 设定安全的密码，生成随机的salt并经过1024次 sha-1 hash
 	 */
 	private void entryptPassword(User user) {
@@ -125,6 +125,11 @@ public class AccountService extends BaseService<User, Long> {
 	@Autowired
 	public void setTaskService(TaskService taskService) {
 		this.taskService = taskService;
+	}
+
+	@Autowired
+	public void setBusinessLogger(BusinessLogger businessLogger) {
+		this.businessLogger = businessLogger;
 	}
 
 }

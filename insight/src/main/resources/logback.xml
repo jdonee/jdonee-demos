@@ -22,6 +22,8 @@
 	<logger name="com.jdonee.insight.dao" level="INFO" />
 	
 	<logger name="org.apache.shiro" level="INFO" />
+	
+	<logger name="ro.isdc.wro" level="INFO" />
 
 	<!--log4jdbc -->
 	<!--打印消耗时间 执行动作和SQL语句 -->

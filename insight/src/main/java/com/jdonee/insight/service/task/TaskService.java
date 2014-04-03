@@ -16,6 +16,7 @@ import com.google.common.collect.ImmutableMap;
 import com.jdonee.insight.dao.demo.TaskDao;
 import com.jdonee.insight.domain.demo.Task;
 import com.jdonee.insight.service.BaseService;
+import com.jdonee.insight.service.BusinessLogger;
 import com.jdonee.insight.util.mybatis.MyBatisTableName;
 import com.jdonee.insight.util.pagination.Page;
 
@@ -33,6 +34,8 @@ public class TaskService extends BaseService<Task, Long> {
 	private TaskDao taskDao;
 
 	private String tableNames;
+
+	private BusinessLogger businessLogger;
 
 	public TaskService() {
 		super();
@@ -52,12 +55,21 @@ public class TaskService extends BaseService<Task, Long> {
 		RowBounds rowBounds = new RowBounds(page.getOffset(), page.getLimit());// 使用RowBounds计算偏移量和偏移总数
 		List<Task> pageList = taskDao.findTaskPageList(tableNames, page.getParamsMap(), rowBounds);
 		page.setResult(pageList);
+		// 业务日志演示
+		if (businessLogger != null) {
+			businessLogger.log("TASK", "LIST", getCurrentUserName(), null);
+		}
 		return page;
 	}
 
 	@Autowired
 	public void setTaskDao(TaskDao taskDao) {
 		this.taskDao = taskDao;
+	}
+
+	@Autowired
+	public void setBusinessLogger(BusinessLogger businessLogger) {
+		this.businessLogger = businessLogger;
 	}
 
 }

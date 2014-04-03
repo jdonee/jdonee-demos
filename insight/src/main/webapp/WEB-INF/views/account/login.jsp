@@ -45,7 +45,7 @@
 	</form>
 
 	<script>
-	$(window).load(function(){
+	$(document).ready(function() {
 			$("#loginForm").validate();
 		});
 	</script>
