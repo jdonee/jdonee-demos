@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,10 +21,10 @@ public class User extends IdEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@NotBlank
+	@NotNull
 	private String loginName;
 
-	@NotBlank
+	@NotNull
 	private String name;
 
 	// 不持久化到数据库，也不显示在Restful接口的属性.

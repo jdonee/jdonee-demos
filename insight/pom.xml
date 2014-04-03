@@ -20,7 +20,6 @@
 		<mybatis.version>3.2.6</mybatis.version>
 		<tomcat-jdbc.version>7.0.52</tomcat-jdbc.version>
 		<sitemesh.version>2.4.2</sitemesh.version>
-		<hibernate-validator.version>5.0.3.Final</hibernate-validator.version>
 		<jackson.version>2.3.1</jackson.version>
 		<logback.version>1.1.1</logback.version>
 		<commons-lang3.version>3.2.1</commons-lang3.version>
@@ -35,6 +34,7 @@
 		<mockito.version>1.9.5</mockito.version>
 		<powermock.version>1.5.4</powermock.version>
 		<jetty.version>7.6.14.v20131031</jetty.version>
+		<wro4j.version>1.7.4</wro4j.version>
 
 		<!-- 其它定义 -->
 		<jdbc.driver.groupId>mysql</jdbc.driver.groupId>
@@ -166,6 +166,20 @@
 				</exclusions>
 			</dependency>
 		<!-- WEB end -->
+		
+		<!-- resource bundling -->
+        <dependency>
+            <groupId>ro.isdc.wro4j</groupId>
+            <artifactId>wro4j-core</artifactId>
+            <version>${wro4j.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>ro.isdc.wro4j</groupId>
+            <artifactId>wro4j-extensions</artifactId>
+            <version>${wro4j.version}</version>
+            <scope>runtime</scope>
+        </dependency>
 
 		<!-- SECURITY begin -->
 		<dependency>
@@ -182,9 +196,9 @@
 
 		<!-- JSR303 BeanValidator -->
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>${hibernate-validator.version}</version>
+		  <groupId>javax.validation</groupId>
+		  <artifactId>validation-api</artifactId>
+		  <version>1.1.0.Final</version>
 		</dependency>
 
 		<!-- JSON begin -->
@@ -393,6 +407,22 @@
 					<showWarnings>true</showWarnings>
 				</configuration>
 			</plugin>
+			
+			<!-- 热部署插件 -->
+			<plugin>
+				<groupId>org.zeroturnaround</groupId>
+				<artifactId>javarebel-maven-plugin</artifactId>
+				<version>1.0.5</version>
+				<executions>
+					<execution>
+						<id>generate-rebel-xml</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
 			<!-- war打包插件, 设定war包名称不带版本号 -->
 			<plugin>
@@ -400,8 +430,19 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.4</version>
 				<configuration>
-					<warName>${project.artifactId}</warName>
-				</configuration>
+							<warName>${project.build.finalName}</warName>
+							<warSourceExcludes>**/webdefault.xml</warSourceExcludes>
+							<packagingExcludes>**/webdefault.xml,**/rebel.xml</packagingExcludes>
+							<webResources>
+								<resource>
+									<filtering>true</filtering>
+									<directory>src/main/webapp</directory>
+									<includes>
+										<include>**/web.xml</include>
+									</includes>
+								</resource>
+							</webResources>
+						</configuration>
 			</plugin>
 
 			<!-- test插件, 仅测试名称为*Test的类,使用支持分组测试的surefire-junit47 driver -->
@@ -453,7 +494,7 @@
 				<configuration>
 					<instrumentation>
 						<excludes>
-							<exclude>**/entity/**/*.class</exclude>
+							<exclude>**/domain/**/*.class</exclude>
 							<exclude>**/*Controller.class</exclude>
 						</excludes>
 					</instrumentation>
@@ -503,6 +544,9 @@
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>${jetty.version}</version>
 				<configuration>
+					<reload>manual</reload>
+					<stopPort>9966</stopPort>
+					<stopKey>foo</stopKey>
 					<systemProperties>
 						<systemProperty>
 							<name>spring.profiles.active</name>
@@ -510,9 +554,9 @@
 						</systemProperty>
 					</systemProperties>
 					<useTestClasspath>true</useTestClasspath>
-
 					<webAppConfig>
-						<contextPath>/${project.artifactId}</contextPath>
+						<defaultsDescriptor>src/main/resources/webdefault.xml</defaultsDescriptor><!--更改源文件中useFileMappedBuffer参数为false用于调试 -->
+						<contextPath>/${project.build.finalName}</contextPath>
 					</webAppConfig>
 				</configuration>
 			</plugin>
@@ -531,8 +575,36 @@
 				<version>2.5.1</version>
 			</plugin>
 
-
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.zeroturnaround</groupId>
+										<artifactId>javarebel-maven-plugin</artifactId>
+										<versionRange>[1.0.5,)</versionRange>
+										<goals>
+											<goal>generate</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 	<profiles>

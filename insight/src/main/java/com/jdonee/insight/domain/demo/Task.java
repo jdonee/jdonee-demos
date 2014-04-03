@@ -2,8 +2,9 @@ package com.jdonee.insight.domain.demo;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.hibernate.validator.constraints.NotBlank;
 
 import com.jdonee.insight.domain.IdEntity;
 import com.jdonee.insight.util.mybatis.MyBatisTableName;
@@ -20,7 +21,7 @@ public class Task extends IdEntity implements Serializable {
 	private User user;
 
 	// JSR303 BeanValidator的校验规则
-	@NotBlank
+	@NotNull
 	public String getTitle() {
 		return title;
 	}

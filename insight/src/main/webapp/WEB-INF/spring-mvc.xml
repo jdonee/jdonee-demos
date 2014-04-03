@@ -39,6 +39,10 @@
 	<!-- 定义无需Controller的url<->view直接映射 -->
 	<mvc:view-controller path="/" view-name="redirect:/task"/>
 	
+	<!-- 对某些静态资源，如css,图片等进行过滤 ,有引用 "/js/**" 的路径引用转到工程的/js/目录取资源 -->
+	<mvc:resources mapping="/static/**" location="/static/" />
+	<mvc:resources mapping="/bundle/**" location="/bundle/" />
+	
 	<!-- 将Controller抛出的异常转到特定View, 保持SiteMesh的装饰效果 -->
 	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
 		<property name="exceptionMappings">  

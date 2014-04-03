@@ -25,6 +25,7 @@
 			<value>
 				/login = authc
 				/logout = logout
+				/bundle/** = anon
 				/static/** = anon
 				/api/** = anon
 				/register/** = anon

@@ -23,6 +23,15 @@
 
 	<!-- 配置属性文件 -->
 	<util:properties id="settings" location="classpath:/application.properties" />  
+	
+	<!--wro映射  -->
+	<bean id="wroFilter" class="ro.isdc.wro.http.ConfigurableWroFilter">
+	  <property name="properties" ref="wroProperties"/>
+	</bean>
+	
+	<bean id="wroProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">  
+	    <property name="location" value="classpath:wro.properties" />  
+	</bean>
 
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />

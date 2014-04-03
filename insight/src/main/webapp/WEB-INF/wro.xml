@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<groups xmlns="http://www.isdc.ro/wro">
+
+	<group name="global">
+		<group-ref>jquery</group-ref>
+		<group-ref>bootstrap</group-ref>
+		<group-ref>jquery-validation</group-ref>		
+	</group>
+	
+	<group name="jquery">
+		<js minimize="false">/static/jquery/jquery-1.9.1.min.js</js>	
+	</group>
+	
+	<group name="bootstrap">
+		<css minimize="false">/static/bootstrap/2.3.2/css/bootstrap-responsive.min.css</css>
+		<css minimize="false">/static/bootstrap/2.3.2/css/bootstrap.min.css</css>
+		<js minimize="false">/static/bootstrap/2.3.2/js/bootstrap.min.js</js>
+	</group>
+	
+	<group name="jquery-validation">
+		<css>/static/jquery-validation/1.11.1/validate.css</css>
+		<js minimize="false">/static/jquery-validation/1.11.1/jquery.validate.min.js</js>
+		<js>/static/jquery-validation/1.11.1/messages_bs_zh.js</js>
+	</group>
+	
+	
+    <group name="all">
+    	<group-ref>global</group-ref>
+        <!-- this config allows you to create subdirectories in /static/js or /static/css to split the js and css files up in any way that suits the project -->
+        <css>/static/styles/**.css</css>
+        <!-- <js>/static/js/**.js</js> -->
+    </group>
+</groups>
