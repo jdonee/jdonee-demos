@@ -79,6 +79,7 @@ public class AccountServiceTest {
 		// 正常删除用户.
 		accountService.deleteUser(2L);
 		Mockito.verify(mockUserDao).delete(tableName, 2L);
+		Mockito.verify(mockTaskService).deleteByUserId(2L);
 
 		// 删除超级管理用户抛出异常, userDao没有被执行
 		try {
@@ -88,6 +89,7 @@ public class AccountServiceTest {
 			// expected exception
 		}
 		Mockito.verify(mockUserDao, Mockito.never()).delete(tableName, 1L);
+		Mockito.verify(mockTaskService, Mockito.never()).deleteByUserId(1L);
 	}
 
 }
