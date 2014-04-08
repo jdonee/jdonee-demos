@@ -27,8 +27,10 @@ public class TailorWebSocketServlet extends WebSocketServlet {
 	public void init() throws ServletException {
 		super.init();
 		executor.scheduleAtFixedRate(new Runnable() {
+			@Override
 			public void run() {
 				System.out.println("Running Server Message Sending");
+				System.out.println("Members Size:" + _members.size());
 				for (TailorSocket member : _members) {
 					System.out.println("Trying to send to Member!");
 					if (member.isOpen()) {
@@ -37,6 +39,10 @@ public class TailorWebSocketServlet extends WebSocketServlet {
 							member.sendMessage("Sending a Message to you Guys! " + new Date() + newLine);
 						} catch (IOException e) {
 							e.printStackTrace();
+						} finally {
+							if (_members.size() > 2) {
+								member.onClose(1000, "Members Size more than 2,so close one.");
+							}
 						}
 					}
 				}
@@ -50,6 +56,7 @@ public class TailorWebSocketServlet extends WebSocketServlet {
 		getServletContext().getNamedDispatcher("default").forward(request, response);
 	}
 
+	@Override
 	public WebSocket doWebSocketConnect(HttpServletRequest request, String protocol) {
 		return new TailorSocket();
 	}
@@ -57,6 +64,7 @@ public class TailorWebSocketServlet extends WebSocketServlet {
 	class TailorSocket implements WebSocket.OnTextMessage {
 		private Connection _connection;
 
+		@Override
 		public void onClose(int closeCode, String message) {
 			_members.remove(this);
 		}
@@ -65,6 +73,7 @@ public class TailorWebSocketServlet extends WebSocketServlet {
 			_connection.sendMessage(data);
 		}
 
+		@Override
 		public void onMessage(String data) {
 			System.out.println("Received: " + data);
 		}
@@ -73,6 +82,7 @@ public class TailorWebSocketServlet extends WebSocketServlet {
 			return _connection.isOpen();
 		}
 
+		@Override
 		public void onOpen(Connection connection) {
 			_members.add(this);
 			_connection = connection;
