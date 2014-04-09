@@ -13,7 +13,7 @@ package com.jdonee.insight.web;
  * 
  * @author calvin
  */
-public class MediaTypes {
+public final class MediaTypes {
 
 	public static final String APPLICATION_XML = "application/xml";
 	public static final String APPLICATION_XML_UTF_8 = "application/xml; charset=UTF-8";

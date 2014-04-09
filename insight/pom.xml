@@ -33,7 +33,6 @@
 		<assertj.version>1.5.0</assertj.version>
 		<mockito.version>1.9.5</mockito.version>
 		<powermock.version>1.5.4</powermock.version>
-		<jetty.version>8.1.14.v20131031</jetty.version>
 		<wro4j.version>1.7.4</wro4j.version>
 
 		<!-- 其它定义 -->
@@ -84,17 +83,17 @@
 		</dependency>
 		<!-- SPRING end -->
 		<!-- aop -->
-			<dependency>
-				<groupId>org.aspectj</groupId>
-				<artifactId>aspectjrt</artifactId>
-				<version>${aspectj.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.aspectj</groupId>
-				<artifactId>aspectjweaver</artifactId>
-				<version>${aspectj.version}</version>
-				<scope>runtime</scope>
-			</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspectj.version}</version>
+			<scope>runtime</scope>
+		</dependency>
 
 		<!-- connection pool -->
 		<dependency>
@@ -142,42 +141,41 @@
 		</dependency>
 
 		<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>javax.servlet-api</artifactId>
-				<version>3.0.1</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>jstl</artifactId>
-				<version>1.2</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>jsp-api</artifactId>
-				<version>2.0</version>
-				<scope>provided</scope>
-				<exclusions>
-					<exclusion>
-						<groupId>javax.servlet</groupId>
-						<artifactId>javax.servlet-api</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.0</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>javax.servlet-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<!-- WEB end -->
-		
+
 		<!-- resource bundling -->
-        <dependency>
-            <groupId>ro.isdc.wro4j</groupId>
-            <artifactId>wro4j-core</artifactId>
-            <version>${wro4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>ro.isdc.wro4j</groupId>
-            <artifactId>wro4j-extensions</artifactId>
-            <version>${wro4j.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>ro.isdc.wro4j</groupId>
+			<artifactId>wro4j-core</artifactId>
+			<version>${wro4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ro.isdc.wro4j</groupId>
+			<artifactId>wro4j-extensions</artifactId>
+			<version>${wro4j.version}</version>
+		</dependency>
 
 		<!-- SECURITY begin -->
 		<dependency>
@@ -194,9 +192,9 @@
 
 		<!-- JSR303 BeanValidator -->
 		<dependency>
-		  <groupId>javax.validation</groupId>
-		  <artifactId>validation-api</artifactId>
-		  <version>1.1.0.Final</version>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.1.0.Final</version>
 		</dependency>
 
 		<!-- JSON begin -->
@@ -247,7 +245,7 @@
 			<version>${slf4j.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-		 
+
 		<dependency>
 			<groupId>org.bgee.log4jdbc-log4j2</groupId>
 			<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
@@ -263,26 +261,26 @@
 			<version>${commons-lang3.version}</version>
 		</dependency>
 		<dependency>
-				<groupId>commons-io</groupId>
-				<artifactId>commons-io</artifactId>
-				<version>${commons-io.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>commons-codec</groupId>
-				<artifactId>commons-codec</artifactId>
-				<version>1.9</version>
-			</dependency>
-			<dependency>
-				<groupId>commons-beanutils</groupId>
-				<artifactId>commons-beanutils</artifactId>
-				<version>1.9.1</version>
-				<exclusions>
-					<exclusion>
-						<groupId>commons-logging</groupId>
-						<artifactId>commons-logging</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.9</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -307,37 +305,37 @@
 			<version>${jackson.version}</version>
 		</dependency>
 		<!-- pojo copy -->
-			<dependency>
-				<groupId>net.sf.dozer</groupId>
-				<artifactId>dozer</artifactId>
-				<version>${dozer.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>org.slf4j</groupId>
-						<artifactId>slf4j-log4j12</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<!-- template engine -->
-			<dependency>
-				<groupId>org.freemarker</groupId>
-				<artifactId>freemarker</artifactId>
-				<version>${freemarker.version}</version>
-			</dependency>
+		<dependency>
+			<groupId>net.sf.dozer</groupId>
+			<artifactId>dozer</artifactId>
+			<version>${dozer.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- template engine -->
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>${freemarker.version}</version>
+		</dependency>
 
-			<!-- commons-pool -->
-			<!-- email -->
-			<dependency>
-				<groupId>javax.mail</groupId>
-				<artifactId>mail</artifactId>
-				<version>1.4.7</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.activation</groupId>
-				<artifactId>activation</artifactId>
-				<version>1.1.1</version>
-			</dependency>
-		
+		<!-- commons-pool -->
+		<!-- email -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>activation</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
 		<!-- GENERAL UTILS end -->
 
 		<!-- TEST begin -->
@@ -369,19 +367,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- jetty -->
-		<dependency>
-			<groupId>org.eclipse.jetty.aggregate</groupId>
-			<artifactId>jetty-webapp</artifactId>
-			<version>${jetty.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-jsp</artifactId>
-			<version>${jetty.version}</version>
-			<scope>test</scope>
-		</dependency>
 		<!-- TEST end -->
 	</dependencies>
 	<build>
@@ -405,7 +390,7 @@
 					<showWarnings>true</showWarnings>
 				</configuration>
 			</plugin>
-			
+
 			<!-- 热部署插件 -->
 			<plugin>
 				<groupId>org.zeroturnaround</groupId>
@@ -428,19 +413,19 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.4</version>
 				<configuration>
-							<warName>${project.build.finalName}</warName>
-							<warSourceExcludes>**/webdefault.xml</warSourceExcludes>
-							<packagingExcludes>**/webdefault.xml,**/rebel.xml</packagingExcludes>
-							<webResources>
-								<resource>
-									<filtering>true</filtering>
-									<directory>src/main/webapp</directory>
-									<includes>
-										<include>**/web.xml</include>
-									</includes>
-								</resource>
-							</webResources>
-						</configuration>
+					<warName>${project.build.finalName}</warName>
+					<warSourceExcludes>**/webdefault.xml</warSourceExcludes>
+					<packagingExcludes>**/webdefault.xml,**/rebel.xml</packagingExcludes>
+					<webResources>
+						<resource>
+							<filtering>true</filtering>
+							<directory>src/main/webapp</directory>
+							<includes>
+								<include>**/web.xml</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
 			</plugin>
 
 			<!-- test插件, 仅测试名称为*Test的类,使用支持分组测试的surefire-junit47 driver -->
@@ -499,7 +484,7 @@
 				</configuration>
 			</plugin>
 
-			<!-- enforcer插件, 避免被依赖的依赖引入过期的jar�? -->
+			<!-- enforcer插件, 避免被依赖的依赖引入过期的jar -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
@@ -536,26 +521,20 @@
 				</executions>
 			</plugin>
 
-			<!-- jetty插件, 设定context path与spring profile -->
+			<!-- tomcat插件 -->
 			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>${jetty.version}</version>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.1</version>
 				<configuration>
-					<reload>manual</reload>
-					<stopPort>9966</stopPort>
-					<stopKey>foo</stopKey>
+					<uriEncoding>UTF-8</uriEncoding>   <!--tomcat的url编码  达到和修改server.xml文件一样的功能-->  
+					<path>/${project.build.finalName}</path>
+					<!-- optionnal system propoerties you want to add -->
 					<systemProperties>
-						<systemProperty>
-							<name>spring.profiles.active</name>
-							<value>development</value>
-						</systemProperty>
+						<spring.profiles.active>development</spring.profiles.active>
 					</systemProperties>
-					<useTestClasspath>true</useTestClasspath>
-					<webAppConfig>
-						<defaultsDescriptor>src/main/resources/webdefault.xml</defaultsDescriptor><!--更改源文件中useFileMappedBuffer参数为false用于调试 -->
-						<contextPath>/${project.build.finalName}</contextPath>
-					</webAppConfig>
+					<!-- if you want to use test dependencies rather than only runtime -->
+					<useTestClasspath>false</useTestClasspath>
 				</configuration>
 			</plugin>
 
@@ -576,7 +555,7 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
