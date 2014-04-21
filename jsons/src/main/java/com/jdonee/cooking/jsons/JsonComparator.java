@@ -33,8 +33,6 @@ public class JsonComparator {
 		clacTime(100000);
 		clacTime(500000);
 		clacTime(1000000);
-		clacTime(2000000);
-		clacTime(5000000);
 	}
 
 	/**
