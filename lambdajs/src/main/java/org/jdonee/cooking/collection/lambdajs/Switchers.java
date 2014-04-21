@@ -6,9 +6,9 @@ package org.jdonee.cooking.collection.lambdajs;
 import static ch.lambdaj.Lambda.*;
 import static org.hamcrest.Matchers.*;
 
-import org.jdonee.cooking.Person;
+import org.jdonee.cooking.*;
 
-import ch.lambdaj.function.closure.Switcher;
+import ch.lambdaj.function.closure.*;
 
 /**
  * @author ZengAihui
