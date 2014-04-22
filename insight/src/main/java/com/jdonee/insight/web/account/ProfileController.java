@@ -5,20 +5,17 @@
  *******************************************************************************/
 package com.jdonee.insight.web.account;
 
-import javax.validation.Valid;
+import javax.validation.*;
 
-import org.apache.shiro.SecurityUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.apache.shiro.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.context.annotation.*;
+import org.springframework.stereotype.*;
+import org.springframework.ui.*;
+import org.springframework.web.bind.annotation.*;
 
-import com.jdonee.insight.domain.demo.User;
-import com.jdonee.insight.service.account.AccountService;
+import com.jdonee.insight.domain.demo.*;
+import com.jdonee.insight.service.account.*;
 import com.jdonee.insight.service.account.ShiroDbRealm.ShiroUser;
 
 /**
@@ -37,7 +34,7 @@ public class ProfileController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String updateForm(Model model) {
 		Long id = getCurrentUserId();
-		model.addAttribute("user", accountService.findOneById(id));
+		model.addAttribute("user", accountService.getById(id));
 		return "account/profile";
 	}
 
@@ -55,7 +52,7 @@ public class ProfileController {
 	@ModelAttribute
 	public void getUser(@RequestParam(value = "id", defaultValue = "-1") Long id, Model model) {
 		if (id != -1) {
-			model.addAttribute("user", accountService.findOneById(id));
+			model.addAttribute("user", accountService.getById(id));
 		}
 	}
 

@@ -113,7 +113,6 @@
 			<version>${jdbc.driver.version}</version>
 		</dependency>
 
-
 		<!-- mybatis -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
@@ -336,6 +335,21 @@
 			<version>1.1.1</version>
 		</dependency>
 
+		<!-- memcached -->
+		<dependency>
+			<groupId>net.spy</groupId>
+			<artifactId>spymemcached</artifactId>
+			<version>2.10.5</version>
+		</dependency>
+
+		<!-- memcached simulator -->
+		<dependency>
+			<groupId>com.thimbleware.jmemcached</groupId>
+			<artifactId>jmemcached-core</artifactId>
+			<version>1.0.0</version>
+			<scope>runtime</scope>
+		</dependency>
+
 		<!-- GENERAL UTILS end -->
 
 		<!-- TEST begin -->
@@ -414,8 +428,7 @@
 				<version>2.4</version>
 				<configuration>
 					<warName>${project.build.finalName}</warName>
-					<warSourceExcludes>**/webdefault.xml</warSourceExcludes>
-					<packagingExcludes>**/webdefault.xml,**/rebel.xml</packagingExcludes>
+					<!-- <warSourceExcludes>**/webdefault.xml</warSourceExcludes> <packagingExcludes>**/webdefault.xml,**/rebel.xml</packagingExcludes> -->
 					<webResources>
 						<resource>
 							<filtering>true</filtering>
@@ -527,7 +540,7 @@
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.1</version>
 				<configuration>
-					<uriEncoding>UTF-8</uriEncoding>   <!--tomcat的url编码  达到和修改server.xml文件一样的功能-->  
+					<uriEncoding>UTF-8</uriEncoding>   <!--tomcat的url编码 达到和修改server.xml文件一样的功能 -->
 					<path>/${project.build.finalName}</path>
 					<!-- optionnal system propoerties you want to add -->
 					<systemProperties>

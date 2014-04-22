@@ -9,7 +9,8 @@
 		<param-value>
 			classpath:/applicationContext.xml,
 			classpath:/spring-mybatis.xml,
-			classpath:/applicationContext-shiro.xml
+			classpath:security/applicationContext-shiro.xml,
+			classpath:cache/applicationContext-memcached.xml
 		</param-value>
 	</context-param>
 	<context-param>
