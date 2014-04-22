@@ -29,6 +29,7 @@
 				/static/** = anon
 				/api/v1/** = anon
 				/register/** = anon
+				/error/** = anon
 				/admin/** = roles[admin]
 				/api/secure/v1/** = authcBasic
 				/** = user
