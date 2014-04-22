@@ -5,6 +5,7 @@
  *******************************************************************************/
 package com.jdonee.insight.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jdonee.insight.util.mybatis.MyBatisTableName;
 import com.jdonee.insight.util.mybatis.MyBatisTransient;
 
@@ -21,12 +22,14 @@ public abstract class IdEntity {
 	 * 保存时写入表名称
 	 */
 	@MyBatisTransient
+	@JsonIgnore
 	protected String tableName;
 
 	/**
 	 * 保存时写入表(组合)名称
 	 */
 	@MyBatisTransient
+	@JsonIgnore
 	protected String tableNames;
 
 	public IdEntity() {
