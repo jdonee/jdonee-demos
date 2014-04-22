@@ -1,20 +1,19 @@
 package com.jdonee.insight.domain.demo;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.*;
+import org.apache.commons.lang3.builder.*;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.common.collect.ImmutableList;
-import com.jdonee.insight.domain.IdEntity;
-import com.jdonee.insight.util.mybatis.MyBatisTableName;
-import com.jdonee.insight.util.mybatis.MyBatisTransient;
+import com.fasterxml.jackson.annotation.*;
+import com.google.common.base.*;
+import com.google.common.collect.*;
+import com.jdonee.insight.domain.*;
+import com.jdonee.insight.util.*;
+import com.jdonee.insight.util.mybatis.*;
 
 @MyBatisTableName(name = "tb_user")
 public class User extends IdEntity implements Serializable {
@@ -36,8 +35,6 @@ public class User extends IdEntity implements Serializable {
 
 	private String salt;
 
-	@MyBatisTransient
-	@JsonIgnore
 	private String roles;
 
 	// 设定JSON序列化时的日期格式
@@ -100,9 +97,14 @@ public class User extends IdEntity implements Serializable {
 		this.roles = roles;
 	}
 
+	@JsonIgnore
 	public List<String> getRoleList() {
+		List<String> roleList = Lists.newArrayList();
 		// 角色列表在数据库中实际以逗号分隔字符串存储，因此返回不能修改的List.
-		return ImmutableList.copyOf(StringUtils.split(roles, ","));
+		if (StringUtils.isNotBlank(roles)) {
+			roleList = ImmutableList.copyOf(Splitter.on(Constants.DEFAULT_SEPARATOR).split(roles));
+		}
+		return roleList;
 	}
 
 	public Date getRegisterDate() {

@@ -3,25 +3,22 @@
  */
 package com.jdonee.insight.service.account;
 
-import java.util.Map;
+import java.util.*;
 
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
+import org.apache.commons.lang3.*;
+import org.slf4j.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
+import org.springframework.transaction.annotation.*;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
-import com.jdonee.insight.domain.demo.User;
-import com.jdonee.insight.service.BaseService;
-import com.jdonee.insight.service.BusinessLogger;
-import com.jdonee.insight.service.ServiceException;
-import com.jdonee.insight.service.task.TaskService;
-import com.jdonee.insight.util.commons.Clock;
-import com.jdonee.insight.util.commons.Encodes;
-import com.jdonee.insight.util.commons.security.utils.Digests;
+import com.google.common.collect.*;
+import com.jdonee.insight.domain.demo.*;
+import com.jdonee.insight.service.*;
+import com.jdonee.insight.service.task.*;
+import com.jdonee.insight.util.commons.*;
+import com.jdonee.insight.util.commons.cache.memcached.*;
+import com.jdonee.insight.util.commons.mapper.*;
+import com.jdonee.insight.util.commons.security.utils.*;
 
 /**
  * 
@@ -40,9 +37,14 @@ public class AccountService extends BaseService<User, Long> {
 
 	private static Logger logger = LoggerFactory.getLogger(AccountService.class);
 
+	private final JsonMapper jsonMapper = JsonMapper.nonDefaultMapper();
+
 	private Clock clock = Clock.DEFAULT;
 
 	private TaskService taskService;
+
+	@Autowired(required = false)
+	private SpyMemcachedClient memcachedClient;
 
 	private BusinessLogger businessLogger;
 
@@ -74,6 +76,21 @@ public class AccountService extends BaseService<User, Long> {
 	}
 
 	/**
+	 * 根据登录名查找用户
+	 * 
+	 * @param loginName
+	 * @return
+	 */
+	@Transactional(readOnly = true)
+	public User getById(Long id) {
+		if (memcachedClient != null) {
+			return getUserWithMemcached(id);
+		} else {
+			return this.findOneById(id);
+		}
+	}
+
+	/**
 	 * 更新用户
 	 * 
 	 * @param user
@@ -83,6 +100,31 @@ public class AccountService extends BaseService<User, Long> {
 			entryptPassword(user);
 		}
 		this.update(user);
+		if (memcachedClient != null) {
+			if (user != null) {
+				String jsonString = jsonMapper.toJson(user);
+				memcachedClient.set(MemcachedObjectType.USER.getPrefix() + user.getId(),
+						MemcachedObjectType.USER.getExpiredTime(), jsonString);
+			}
+		}
+	}
+
+	/**
+	 * 先访问Memcached, 使用JSON字符串存放对象以节约空间.
+	 */
+	private User getUserWithMemcached(Long id) {
+		String key = MemcachedObjectType.USER.getPrefix() + id;
+		String jsonString = memcachedClient.get(key);
+		if (jsonString != null) {
+			return jsonMapper.fromJson(jsonString, User.class);
+		} else {
+			User user = this.findOneById(id);
+			if (user != null) {
+				jsonString = jsonMapper.toJson(user);
+				memcachedClient.set(key, MemcachedObjectType.USER.getExpiredTime(), jsonString);
+			}
+			return user;
+		}
 	}
 
 	/**
@@ -97,6 +139,10 @@ public class AccountService extends BaseService<User, Long> {
 		}
 		this.delete(id);
 		taskService.deleteByUserId(id);
+		if (memcachedClient != null) {
+			String key = MemcachedObjectType.USER.getPrefix() + id;
+			memcachedClient.delete(key);
+		}
 	}
 
 	/**
