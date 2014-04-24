@@ -1,26 +1,33 @@
-package com.jdonee.insight.domain.demo;
-
-import java.io.Serializable;
+package com.jdonee.insight.dto;
 
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.jdonee.insight.domain.IdEntity;
-import com.jdonee.insight.util.mybatis.MyBatisTableName;
+/**
+ * 任务通用类
+ * 
+ * @author ZengAihui
+ * 
+ */
+public class TaskDTO {
 
-@MyBatisTableName(name = "tb_task", names = "tb_task t,tb_user u")
-public class Task extends IdEntity implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+	private Long id;
 
 	private String title;
 
 	private String description;
 
-	private User user;
+	private Long userId;
 
-	// JSR303 BeanValidator的校验规则
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	@NotNull
 	public String getTitle() {
 		return title;
@@ -39,16 +46,20 @@ public class Task extends IdEntity implements Serializable {
 	}
 
 	@NotNull
-	public User getUser() {
-		return user;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
+	/**
+	 * 重新实现toString()函数方便在日志中打印DTO信息.
+	 */
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
+
 }

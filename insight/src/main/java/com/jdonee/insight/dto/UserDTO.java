@@ -3,12 +3,18 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  *******************************************************************************/
-package com.jdonee.insight.rest;
+package com.jdonee.insight.dto;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+/**
+ * 返回XML格式
+ * 
+ * @author ZengAihui
+ * 
+ */
 @XmlRootElement(name = "User")
 public class UserDTO {
 
