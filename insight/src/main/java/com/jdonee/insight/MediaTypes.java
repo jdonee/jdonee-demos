@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  *******************************************************************************/
-package com.jdonee.insight.web;
+package com.jdonee.insight;
 
 /**
  * 带UTF-8 charset 定义的MediaType.
@@ -14,6 +14,10 @@ package com.jdonee.insight.web;
  * @author calvin
  */
 public final class MediaTypes {
+
+	private MediaTypes() {
+
+	}
 
 	public static final String APPLICATION_XML = "application/xml";
 	public static final String APPLICATION_XML_UTF_8 = "application/xml; charset=UTF-8";

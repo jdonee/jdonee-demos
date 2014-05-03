@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.jdonee.insight.MediaTypes;
 import com.jdonee.insight.util.commons.beanvalidator.BeanValidators;
 import com.jdonee.insight.util.commons.mapper.JsonMapper;
-import com.jdonee.insight.web.MediaTypes;
 
 /**
  * 自定义ExceptionHandler，专门处理Restful异常.
