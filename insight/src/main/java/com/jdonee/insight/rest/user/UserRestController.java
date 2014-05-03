@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jdonee.insight.domain.demo.User;
+import com.jdonee.insight.dto.UserDTO;
 import com.jdonee.insight.rest.RestException;
 import com.jdonee.insight.service.account.AccountService;
 import com.jdonee.insight.util.commons.mapper.BeanMapper;

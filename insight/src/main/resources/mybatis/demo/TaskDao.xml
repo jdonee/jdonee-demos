@@ -44,13 +44,13 @@
 		UPDATE ${tableName}
 	  	<trim prefix="SET" suffixOverrides=",">
 	  			<if test="title!=null">
-					AND title=#{title} 
+					title=#{title}, 
 				</if>
 				<if test="description!=null">
-					AND description=#{description} 
+					description=#{description}, 
 				</if>
 				<if test="user.id!=null">
-					AND user_id=#{user.id} 
+					user_id=#{user.id},
 				</if>
 	  		</trim>
   		WHERE 
@@ -112,13 +112,13 @@
 		SET
 		<foreach collection="list" item="item" index="index" separator=",">
 				 <if test="item.title!=null">
-					AND title=#{item.title} 
+					title=#{item.title},
 				</if>
 				<if test="item.description!=null">
-					AND description=#{item.description} 
+					description=#{item.description}, 
 				</if>
 				<if test="item.user.id!=null">
-					AND user_id=#{item.user.id} 
+					user_id=#{item.user.id}, 
 				</if>
 				WHERE id = #{item.id}
 		</foreach>
