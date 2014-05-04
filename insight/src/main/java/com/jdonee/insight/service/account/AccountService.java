@@ -3,22 +3,30 @@
  */
 package com.jdonee.insight.service.account;
 
-import java.util.*;
+import java.util.Map;
 
-import org.apache.commons.lang3.*;
-import org.slf4j.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.stereotype.*;
-import org.springframework.transaction.annotation.*;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.google.common.collect.*;
-import com.jdonee.insight.domain.demo.*;
-import com.jdonee.insight.service.*;
-import com.jdonee.insight.service.task.*;
-import com.jdonee.insight.util.commons.*;
-import com.jdonee.insight.util.commons.cache.memcached.*;
-import com.jdonee.insight.util.commons.mapper.*;
-import com.jdonee.insight.util.commons.security.utils.*;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
+import com.jdonee.insight.domain.demo.User;
+import com.jdonee.insight.service.BaseService;
+import com.jdonee.insight.service.BusinessLogger;
+import com.jdonee.insight.service.ServiceException;
+import com.jdonee.insight.service.account.ShiroDbRealm.ShiroUser;
+import com.jdonee.insight.service.task.TaskService;
+import com.jdonee.insight.util.commons.Clock;
+import com.jdonee.insight.util.commons.Encodes;
+import com.jdonee.insight.util.commons.cache.memcached.MemcachedObjectType;
+import com.jdonee.insight.util.commons.cache.memcached.SpyMemcachedClient;
+import com.jdonee.insight.util.commons.mapper.JsonMapper;
+import com.jdonee.insight.util.commons.security.utils.Digests;
 
 /**
  * 
@@ -162,6 +170,18 @@ public class AccountService extends BaseService<User, Long> {
 		byte[] hashPassword = Digests.sha1(user.getPlainPassword().getBytes(), salt, HASH_INTERATIONS);
 		user.setPassword(Encodes.encodeHex(hashPassword));
 		logger.debug("password:" + user.getPlainPassword() + ",hashPassword:" + user.getPassword());
+	}
+
+	/**
+	 * 取出Shiro中的当前用户LoginName.
+	 */
+	private String getCurrentUserName() {
+		String currentUserName = "未注册用户";
+		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+		if (user != null) {
+			currentUserName = user.loginName;
+		}
+		return currentUserName;
 	}
 
 	public void setClock(Clock clock) {

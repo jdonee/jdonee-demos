@@ -1,13 +1,9 @@
-/*******************************************************************************
- * Copyright (c) 2005, 2014 springside.github.io
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- *******************************************************************************/
 package com.jdonee.insight.rest.user;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +19,12 @@ import com.jdonee.insight.util.commons.mapper.BeanMapper;
 /**
  * Shiro的配置文件中对/api/secure/**进行拦截，要求authBasic认证.
  * 
- * @author calvin
+ * @author Jdonee
+ *
  */
 @RestController
 @RequestMapping(value = { "/api/v1/user", "/api/secure/v1/user" })
+@Scope("prototype")
 public class UserRestController {
 	private static Logger logger = LoggerFactory.getLogger(UserRestController.class);
 

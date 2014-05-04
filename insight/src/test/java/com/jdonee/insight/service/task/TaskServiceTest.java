@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.jdonee.insight.service.task;
 
 import static org.assertj.core.api.Assertions.*;

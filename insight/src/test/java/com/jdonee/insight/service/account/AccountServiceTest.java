@@ -14,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 import com.jdonee.insight.dao.demo.UserDao;
 import com.jdonee.insight.data.UserData;
 import com.jdonee.insight.domain.demo.User;
+import com.jdonee.insight.service.BusinessLogger;
 import com.jdonee.insight.service.ServiceException;
 import com.jdonee.insight.service.account.ShiroDbRealm.ShiroUser;
 import com.jdonee.insight.service.task.TaskService;
@@ -28,6 +29,9 @@ public class AccountServiceTest {
 
 	@Mock
 	private UserDao mockUserDao;
+
+	@Mock
+	private BusinessLogger mockBusinessLogger;
 
 	@Mock
 	private TaskService mockTaskService;

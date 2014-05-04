@@ -5,11 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.jdonee.insight.dao.BaseDao;
-import com.jdonee.insight.service.account.ShiroDbRealm.ShiroUser;
 import com.jdonee.insight.util.commons.GenericsUtils;
 import com.jdonee.insight.util.mybatis.MyBatisTableName;
 import com.jdonee.insight.util.pagination.Page;
@@ -89,11 +87,4 @@ public abstract class BaseService<T, PK extends Serializable> {
 		return baseDao.count(tableName, params);
 	}
 
-	/**
-	 * 取出Shiro中的当前用户LoginName.
-	 */
-	protected String getCurrentUserName() {
-		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-		return user.loginName;
-	}
 }
