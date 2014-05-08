@@ -84,7 +84,7 @@ public class AccountService extends BaseService<User, Long> {
 	}
 
 	/**
-	 * 根据登录名查找用户
+	 * 根据ID查找用户
 	 * 
 	 * @param loginName
 	 * @return

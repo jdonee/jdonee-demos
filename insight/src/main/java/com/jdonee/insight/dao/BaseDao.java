@@ -130,17 +130,6 @@ public interface BaseDao<T, PK extends Serializable> extends Serializable {
 
 	/**
 	 * 
-	 * Description: 批量更新
-	 * 
-	 * @param tableName
-	 * @param list
-	 * @return
-	 * @throws
-	 */
-	int updateBatch(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_LIST) List<T> list);
-
-	/**
-	 * 
 	 * Description: 批量删除
 	 * 
 	 * @param tableName

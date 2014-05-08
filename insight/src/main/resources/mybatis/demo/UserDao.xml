@@ -100,7 +100,7 @@
   	<include refid="condition"/>
   </select>
   
-  <!-- 批量增加\修改\删除 -->
+  <!-- 批量增加\删除 -->
   <insert id="saveBatch" parameterType="List">
 		INSERT INTO ${tableName}
 			<include refid="insertElements"/>
@@ -110,27 +110,7 @@
   			</foreach>
    </insert>
    
-   <update id="updateBatch" parameterType="List">
-		UPDATE ${tableName} 
-		SET
-		<foreach collection="list" item="item" index="index" separator=",">
-				 <if test="item.loginName !=null">
-  				 	login_name=#{item.loginName},
-  				 </if>
-  				 <if test="item.password !=null">
-  				 	password=#{item.password},
-  				 </if>
-  				 <if test="item.name !=null">
-  				 	name=#{item.name},
-  				 </if>
-  				 <if test="salt !=null">
-  				 	salt=#{item.salt},
-  				 </if>
-				WHERE id = #{item.id}
-		</foreach>
-	</update>
-	
-	<delete id="deleteBatch" parameterType="List">
+  <delete id="deleteBatch" parameterType="List">
 		DELETE FROM 
     		${tableName} 
 	    WHERE 
@@ -138,6 +118,6 @@
 	    		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
 		        		#{item}
 		    	</foreach>
-	</delete>
+   </delete>
 
 </mapper>

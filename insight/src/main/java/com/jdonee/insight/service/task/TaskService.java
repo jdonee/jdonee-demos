@@ -7,16 +7,21 @@ package com.jdonee.insight.service.task;
 
 import java.util.List;
 
-import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import com.jdonee.insight.dao.demo.TaskDao;
 import com.jdonee.insight.domain.demo.Task;
+import com.jdonee.insight.domain.demo.User;
+import com.jdonee.insight.dto.TaskDTO;
+import com.jdonee.insight.dto.UserDTO;
 import com.jdonee.insight.service.BaseService;
-import com.jdonee.insight.util.mybatis.MyBatisTableName;
+import com.jdonee.insight.service.account.AccountService;
+import com.jdonee.insight.util.commons.Collections3;
+import com.jdonee.insight.util.commons.mapper.BeanMapper;
 import com.jdonee.insight.util.pagination.Page;
 
 /**
@@ -32,33 +37,64 @@ public class TaskService extends BaseService<Task, Long> {
 
 	private TaskDao taskDao;
 
-	private String tableNames;
-
-	public TaskService() {
-		super();
-		MyBatisTableName table = Task.class.getAnnotation(MyBatisTableName.class);
-		if (null == table) {
-			throw new RuntimeException("类-" + Task.class + ",未用@MyBatisTableName注解标识!!");
-		}
-		tableNames = table.names();
-	}
+	private AccountService accountService;
 
 	public int deleteByUserId(Long userId) {
 		return taskDao.deleteBatchByParams(tableName, ImmutableMap.of("userId", (Object) userId));
 	}
 
-	public Page<Task> findTaskPage(Page<Task> page) {
-		int dataCount = taskDao.countTask(tableNames, page.getParamsMap());
+	public TaskDTO findTask(Long id) {
+		Task task = this.findOneById(id);
+		return toDTO(task);
+	}
+
+	public List<TaskDTO> findAllTask() {
+		List<TaskDTO> taskDtos = Lists.newArrayList();
+		List<Task> tasks = this.findAll();
+		if (Collections3.isNotEmpty(tasks)) {
+			for (Task task : tasks) {
+				TaskDTO taskDTO = toDTO(task);
+				taskDtos.add(taskDTO);
+			}
+		}
+		return taskDtos;
+	}
+
+	public Page<TaskDTO> findTaskPage(Page<TaskDTO> page) {
+		int dataCount = this.count(page.getParamsMap());
 		page.setDataCount(dataCount);
-		RowBounds rowBounds = new RowBounds(page.getOffset(), page.getLimit());// 使用RowBounds计算偏移量和偏移总数
-		List<Task> pageList = taskDao.findTaskPageList(tableNames, page.getParamsMap(), rowBounds);
-		page.setResult(pageList);
+		List<Task> pageList = this.findPageList(page.getParamsMap(), page.getOffset(), page.getLimit());
+		if (Collections3.isNotEmpty(pageList)) {
+			List<TaskDTO> taskDtos = Lists.newArrayList();
+			for (Task task : pageList) {
+				TaskDTO taskDTO = toDTO(task);
+				taskDtos.add(taskDTO);
+			}
+			page.setResult(taskDtos);
+		}
 		return page;
+	}
+
+	private TaskDTO toDTO(final Task task) {
+		if (task != null) {
+			TaskDTO taskDTO = BeanMapper.map(task, TaskDTO.class);
+			User user = accountService.getById(task.getUserId());
+			UserDTO userDTO = BeanMapper.map(user, UserDTO.class);
+			taskDTO.setUser(userDTO);
+			return taskDTO;
+		} else {
+			return null;
+		}
 	}
 
 	@Autowired
 	public void setTaskDao(TaskDao taskDao) {
 		this.taskDao = taskDao;
+	}
+
+	@Autowired
+	public void setAccountService(AccountService accountService) {
+		this.accountService = accountService;
 	}
 
 }

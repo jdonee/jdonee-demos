@@ -5,8 +5,10 @@
  *******************************************************************************/
 package com.jdonee.insight.data;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
 import com.jdonee.insight.domain.demo.Task;
-import com.jdonee.insight.domain.demo.User;
 
 /**
  * Task相关实体测试数据生成.
@@ -19,9 +21,16 @@ public class TaskData {
 	public static Task randomTask() {
 		Task task = new Task();
 		task.setTitle(randomTitle());
-		User user = new User(1L);
-		task.setUser(user);
+		task.setUserId(1L);
 		return task;
+	}
+
+	public static List<Task> randomTasks(int limit) {
+		List<Task> tasks = Lists.newArrayList();
+		for (int i = 0; i < limit; i++) {
+			tasks.add(randomTask());
+		}
+		return tasks;
 	}
 
 	public static String randomTitle() {

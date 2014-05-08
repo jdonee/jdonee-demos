@@ -64,7 +64,11 @@ public abstract class BaseService<T, PK extends Serializable> {
 	}
 
 	public int updateBatch(List<T> list) {
-		return baseDao.updateBatch(tableName, list);
+		int result = 0;
+		for (T t : list) {
+			result += baseDao.update(t);
+		}
+		return result;
 	}
 
 	public T findOneByParams(Map params) {
@@ -85,6 +89,11 @@ public abstract class BaseService<T, PK extends Serializable> {
 
 	public int count(Map params) {
 		return baseDao.count(tableName, params);
+	}
+
+	public List<T> findPageList(Map params, int offset, int limit) {
+		RowBounds rowBounds = new RowBounds(offset, limit);// 使用RowBounds计算偏移量和偏移总数
+		return baseDao.findPageList(tableName, params, rowBounds);
 	}
 
 }
