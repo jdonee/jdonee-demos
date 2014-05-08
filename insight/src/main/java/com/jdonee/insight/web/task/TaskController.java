@@ -25,7 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.common.collect.Maps;
 import com.jdonee.insight.Servlets;
 import com.jdonee.insight.domain.demo.Task;
-import com.jdonee.insight.domain.demo.User;
+import com.jdonee.insight.dto.TaskDTO;
 import com.jdonee.insight.service.account.ShiroDbRealm.ShiroUser;
 import com.jdonee.insight.service.task.TaskService;
 import com.jdonee.insight.util.pagination.Page;
@@ -66,13 +66,14 @@ public class TaskController {
 		Map<String, Object> searchParams = Servlets.getParametersStartingWith(request, "search_");
 		Long userId = getCurrentUserId();
 		searchParams.put("userId", userId);
-		Page<Task> tasks = new Page<Task>(pageSize, pageNumber);
+		Page<TaskDTO> tasks = new Page<TaskDTO>(pageSize, pageNumber);
 		tasks.setParamsMap(searchParams);
 		tasks = taskService.findTaskPage(tasks);
 		model.addAttribute("tasks", tasks);
 		model.addAttribute("sortType", sortType);
 		model.addAttribute("sortTypes", sortTypes);
 		// 将搜索条件编码成字符串，用于排序，分页的URL
+		searchParams.remove("userId");
 		model.addAttribute("searchParams", Servlets.encodeParameterStringWithPrefix(searchParams, "search_"));
 
 		return "task/taskList";
@@ -87,9 +88,7 @@ public class TaskController {
 
 	@RequestMapping(value = "create", method = RequestMethod.POST)
 	public String create(@Valid Task newTask, RedirectAttributes redirectAttributes) {
-		User user = new User(getCurrentUserId());
-		newTask.setUser(user);
-
+		newTask.setUserId(getCurrentUserId());
 		taskService.save(newTask);
 		redirectAttributes.addFlashAttribute("message", "创建任务成功");
 		return "redirect:/task/";
@@ -104,7 +103,7 @@ public class TaskController {
 
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String update(@Valid @ModelAttribute("task") Task task, RedirectAttributes redirectAttributes) {
-		taskService.save(task);
+		taskService.update(task);
 		redirectAttributes.addFlashAttribute("message", "更新任务成功");
 		return "redirect:/task/";
 	}

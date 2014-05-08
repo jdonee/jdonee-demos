@@ -2,6 +2,12 @@ package com.jdonee.insight.data;
 
 import com.jdonee.insight.domain.demo.User;
 
+/**
+ * User相关实体测试数据生成.
+ * 
+ * @author Jdonee
+ *
+ */
 public class UserData {
 
 	public static User randomNewUser() {

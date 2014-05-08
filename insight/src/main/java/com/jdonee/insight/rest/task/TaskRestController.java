@@ -22,7 +22,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.jdonee.insight.MediaTypes;
 import com.jdonee.insight.domain.demo.Task;
-import com.jdonee.insight.domain.demo.User;
 import com.jdonee.insight.dto.TaskDTO;
 import com.jdonee.insight.rest.RestException;
 import com.jdonee.insight.service.task.TaskService;
@@ -50,20 +49,19 @@ public class TaskRestController {
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaTypes.JSON_UTF_8)
 	public List<TaskDTO> list() {
-		List<Task> taskList = taskService.findAll();
-		List<TaskDTO> dtos = BeanMapper.mapList(taskList, TaskDTO.class);
+		List<TaskDTO> dtos = taskService.findAllTask();
 		return dtos;
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaTypes.JSON_UTF_8)
 	public TaskDTO get(@PathVariable("id") Long id) {
-		Task task = taskService.findOneById(id);
+		TaskDTO task = taskService.findTask(id);
 		if (task == null) {
 			String message = "任务不存在(id:" + id + ")";
 			logger.warn(message);
 			throw new RestException(HttpStatus.NOT_FOUND, message);
 		}
-		return BeanMapper.map(task, TaskDTO.class);
+		return task;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaTypes.JSON)
@@ -73,7 +71,7 @@ public class TaskRestController {
 
 		// 保存任务
 		Task task = BeanMapper.map(taskDTO, Task.class);
-		task.setUser(new User(taskDTO.getUserId()));
+		task.setUserId(taskDTO.getUser().getId());
 		taskService.save(task);
 
 		// 按照Restful风格约定，创建指向新任务的url, 也可以直接返回id或对象.
@@ -94,7 +92,7 @@ public class TaskRestController {
 		// 更新任务
 		Task task = BeanMapper.map(taskDTO, Task.class);
 		task.setId(id);
-		task.setUser(new User(taskDTO.getUserId()));
+		task.setUserId(taskDTO.getUser().getId());
 		taskService.update(task);
 	}
 

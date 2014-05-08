@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.jdonee.insight.dao.demo.TaskDao;
 import com.jdonee.insight.data.TaskData;
@@ -29,8 +30,6 @@ public class TaskDaoTest extends BaseJunitSTTestCase<Task> {
 	@Autowired
 	private TaskDao taskDao;
 
-	private String tableNames;
-
 	@Override
 	@Before
 	public void setUp() {
@@ -39,7 +38,6 @@ public class TaskDaoTest extends BaseJunitSTTestCase<Task> {
 			throw new RuntimeException("类-" + Task.class + ",未用@MyBatisTableName注解标识!!");
 		}
 		tableName = table.name();
-		tableNames = table.names();
 	}
 
 	@Test
@@ -61,23 +59,25 @@ public class TaskDaoTest extends BaseJunitSTTestCase<Task> {
 	}
 
 	@Test
-	public void getTaskPage() throws Exception {
-		Page<Task> taskPage = new Page();
-		Map<String, Object> paramsMap = Maps.newHashMap();
-		taskPage.setParamsMap(paramsMap);
-		List<Task> tasks = taskDao.findTaskPageList(tableNames, taskPage.getParamsMap(),
-				new RowBounds(taskPage.getOffset(), taskPage.getLimit()));
-		taskPage.setResult(tasks);
-		assertThat(taskPage.getResult()).hasSize(5);
-		assertThat(taskPage.getResult().get(0).getUser()).isNotNull();
-		assertThat(taskPage.getResult().get(0).getUser().getName()).isNotNull();
-		assertThat(taskPage.getResult().get(0).getUser().getLoginName()).isNull();
-	}
-
-	@Test
 	@Rollback(true)
 	public void save() {
 		int result = taskDao.save(TaskData.randomTask());
 		assertThat(result).isEqualTo(1);
 	}
+
+	@Test
+	@Rollback(true)
+	public void deleteBatchByParams() {
+		int result = taskDao.deleteBatchByParams(tableName, ImmutableMap.of("userId", (Object) 2));
+		assertThat(result).isEqualTo(5);
+	}
+
+	@Test
+	@Rollback(true)
+	public void saveBatch() {
+		List<Task> tasks = TaskData.randomTasks(10);
+		int result = taskDao.saveBatch(tableName, tasks);
+		assertThat(result).isEqualTo(10);
+	}
+
 }
