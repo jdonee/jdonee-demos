@@ -16,9 +16,8 @@
 	</group>
 
 	<group name="bootstrap">
-		<css minimize="false">/static/bootstrap/2.3.2/css/bootstrap-responsive.min.css</css>
-		<css minimize="false">/static/bootstrap/2.3.2/css/bootstrap.min.css</css>
-		<js minimize="false">/static/bootstrap/2.3.2/js/bootstrap.min.js</js>
+		<css minimize="false">/static/bootstrap/ace1.3/css/bootstrap.min.css</css>
+		<js minimize="false">/static/bootstrap/ace1.3/js/bootstrap.min.js</js>
 	</group>
 	
 	<group name="jquery-validation">

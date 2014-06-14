@@ -9,4 +9,8 @@
 	<decorator name="default" page="default.jsp">
 		<pattern>/*</pattern>
 	</decorator>
+	
+	<decorator name="unlogined" page="unlogined.jsp">
+		<pattern>/login*</pattern>
+	</decorator>
 </decorators>

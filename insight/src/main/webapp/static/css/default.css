@@ -19,3 +19,7 @@
 }
 
 #footer a {color: #999;}
+
+.modal-footer {
+    border-top: 0 none;
+}

@@ -14,8 +14,7 @@ request.setAttribute("begin", begin);
 request.setAttribute("end", end);
 %>
 
-<div class="pagination">
-	<ul>
+<ul class="pagination">
 		 <% if (page.isPrev()){%>
                	<li><a href="?page=1&sortType=${sortType}&${searchParams}">&lt;&lt;</a></li>
                 <li><a href="?page=${current-1}&sortType=${sortType}&${searchParams}">&lt;</a></li>
@@ -42,7 +41,5 @@ request.setAttribute("end", end);
                 <li class="disabled"><a href="javascript:void(0);">&gt;</a></li>
                 <li class="disabled"><a href="javascript:void(0);">&gt;&gt;</a></li>
          <%} %>
-
-	</ul>
-</div>
+</ul>
 
