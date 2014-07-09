@@ -7,4 +7,8 @@
 <link type="image/x-icon" href="${ctx}/static/images/favicon.ico" rel="shortcut icon">
 <link href="${ctx}/bundle/common.css" type="text/css" rel="stylesheet">
 <link href="${ctx}/bundle/default.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+	var _ctx='${ctx}';//项目根路径
+</script>
 <script src="${ctx}/bundle/global.js" type="text/javascript"></script>
+

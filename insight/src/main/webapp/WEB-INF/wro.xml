@@ -3,7 +3,7 @@
 <groups xmlns="http://www.isdc.ro/wro">
 
 	<!-- html5通用 -->
-	<group name="global">	
+	<group name="global">
 		<js minimize="false">/static/js/modernizr-2.8.0.min.js</js>
 		<js minimize="false">/static/js/jquery/jquery-1.11.1.min.js</js>
 		<js>/static/js/plugins.js</js>	
