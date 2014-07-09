@@ -24,8 +24,9 @@
 					String error = (String) request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
 					if(error != null){
 				%>
-						<div class="alert alert-error input-medium controls">
-							<button class="close" data-dismiss="alert">×</button>登录失败，请重试.
+						<div class="alert alert-danger alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+							登录失败，请重试.
 						</div>
 				<%
 					}
@@ -54,7 +55,7 @@
 	      </div>
 	      <div class="modal-footer">
 	          <div class="col-md-12">
-	          <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+	          <button class="btn btn-info" data-dismiss="modal" aria-hidden="true">取消</button>
 			  </div>	
 	      </div>
 	  </div>

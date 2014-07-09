@@ -4,8 +4,8 @@
 
 	<!-- html5通用 -->
 	<group name="global">	
-		<js minimize="false">/static/js/modernizr-2.7.1.min.js</js>
-		<js minimize="false">/static/js/jquery/jquery-1.11.0.min.js</js>
+		<js minimize="false">/static/js/modernizr-2.8.0.min.js</js>
+		<js minimize="false">/static/js/jquery/jquery-1.11.1.min.js</js>
 		<js>/static/js/plugins.js</js>	
 		<js>/static/js/main.js</js>			
 	</group>
