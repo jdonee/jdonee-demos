@@ -1,0 +1,16 @@
+body,input,textarea {
+	font: 1em/1.4 Helvetica, Arial;
+}
+
+input {
+	width: 14em;
+}
+
+textarea {
+	height: 5em;
+	width: 20em;
+}
+
+.placeholder {
+	color: #aaa;
+}
