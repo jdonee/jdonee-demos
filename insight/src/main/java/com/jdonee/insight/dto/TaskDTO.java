@@ -2,6 +2,9 @@ package com.jdonee.insight.dto;
 
 import javax.validation.constraints.NotNull;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
@@ -10,49 +13,16 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * @author ZengAihui
  * 
  */
+@Getter
+@Setter
 public class TaskDTO {
 
 	private Long id;
-
+	@NotNull
 	private String title;
-
 	private String description;
-
+	@NotNull
 	private UserDTO user;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	@NotNull
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	@NotNull
-	public UserDTO getUser() {
-		return user;
-	}
-
-	public void setUser(UserDTO user) {
-		this.user = user;
-	}
 
 	/**
 	 * 重新实现toString()函数方便在日志中打印DTO信息.
