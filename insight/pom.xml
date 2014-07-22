@@ -17,15 +17,15 @@
 		<shiro.version>1.2.2</shiro.version>
 		<hibernate-validator.version>5.0.3.Final</hibernate-validator.version>
 		<slf4j.version>1.7.6</slf4j.version>
-		<spring.version>4.0.2.RELEASE</spring.version>
-		<mybatis.version>3.2.6</mybatis.version>
+		<spring.version>4.0.6.RELEASE</spring.version>
+		<mybatis.version>3.2.7</mybatis.version>
 		<tomcat-jdbc.version>7.0.52</tomcat-jdbc.version>
 		<sitemesh.version>2.4.2</sitemesh.version>
-		<jackson.version>2.3.1</jackson.version>
-		<logback.version>1.1.1</logback.version>
+		<jackson.version>2.4.1</jackson.version>
+		<logback.version>1.1.2</logback.version>
 		<commons-lang3.version>3.2.1</commons-lang3.version>
 		<commons-io.version>2.4</commons-io.version>
-		<guava.version>16.0.1</guava.version>
+		<guava.version>17.0</guava.version>
 		<joda-time.version>2.3</joda-time.version>
 		<dozer.version>5.4.0</dozer.version>
 		<freemarker.version>2.3.20</freemarker.version>
@@ -33,8 +33,8 @@
 		<junit.version>4.11</junit.version>
 		<assertj.version>1.5.0</assertj.version>
 		<mockito.version>1.9.5</mockito.version>
-		<jetty.version>7.6.14.v20131031</jetty.version>
-		<wro4j.version>1.7.4</wro4j.version>
+		<jetty.version>8.1.15.v20140411</jetty.version>
+		<wro4j.version>1.7.6</wro4j.version>
 		<lombok.version>1.14.4</lombok.version>
 
 		<!-- 其它定义 -->
@@ -459,7 +459,8 @@
 				<version>2.4</version>
 				<configuration>
 					<warName>${project.build.finalName}</warName>
-					<!-- <warSourceExcludes>**/webdefault.xml</warSourceExcludes> <packagingExcludes>**/webdefault.xml,**/rebel.xml</packagingExcludes> -->
+					<warSourceExcludes>**/webdefault.xml</warSourceExcludes> 
+					<packagingExcludes>**/webdefault.xml,**/rebel.xml</packagingExcludes>
 					<webResources>
 						<resource>
 							<filtering>true</filtering>
@@ -543,23 +544,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
-			<!-- tomcat插件 -->
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.1</version>
-				<configuration>
-					<uriEncoding>UTF-8</uriEncoding>   <!--tomcat的url编码 达到和修改server.xml文件一样的功能 -->
-					<path>/${project.build.finalName}</path>
-					<!-- optionnal system propoerties you want to add -->
-					<systemProperties>
-						<spring.profiles.active>development</spring.profiles.active>
-					</systemProperties>
-					<!-- if you want to use test dependencies rather than only runtime -->
-					<useTestClasspath>false</useTestClasspath>
-				</configuration>
-			</plugin>
 			
 			<!-- jetty插件, 设定context path与spring profile -->
 			<plugin>
@@ -567,6 +551,9 @@
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>${jetty.version}</version>
 				<configuration>
+					<reload>manual</reload>
+					<stopPort>9976</stopPort>
+					<stopKey>foo</stopKey>
 					<systemProperties>
 						<systemProperty>
 							<name>spring.profiles.active</name>
@@ -575,6 +562,7 @@
 					</systemProperties>
 					<useTestClasspath>true</useTestClasspath>
 					<webAppConfig>
+						<defaultsDescriptor>src/main/resources/webdefault.xml</defaultsDescriptor><!--更改源文件中useFileMappedBuffer参数为false用于调试 -->
 						<contextPath>/${project.artifactId}</contextPath>
 					</webAppConfig>
 				</configuration>
@@ -597,7 +585,7 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
