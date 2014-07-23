@@ -25,7 +25,7 @@
      <![endif]-->
 	<div class="container">
 		<%@ include file="/WEB-INF/layouts/header.jsp"%>
-		<div id="content">
+		<div id="content" class="row">
 			<sitemesh:body/>
 		</div>
 		<%@ include file="/WEB-INF/layouts/footer.jsp"%>
