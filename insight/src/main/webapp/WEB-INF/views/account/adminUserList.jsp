@@ -28,5 +28,10 @@
 		</c:forEach>
 		</tbody>
 	</table>
+	<script>
+		$(function() {
+			$("#users").addClass("active");
+		});
+	</script>
 </body>
 </html>

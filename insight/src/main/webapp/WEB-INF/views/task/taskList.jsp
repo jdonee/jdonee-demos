@@ -47,5 +47,10 @@
 	<tags:pagination page="${tasks}" paginationSize="5"/>
 
 	<div><a class="btn btn-default" href="${ctx}/task/create">创建任务</a></div>
+	<script>
+		$(function() {
+			$("#tasks").addClass("active");
+		});
+	</script>
 </body>
 </html>

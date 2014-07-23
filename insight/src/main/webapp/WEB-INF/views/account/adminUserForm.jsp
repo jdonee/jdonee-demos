@@ -52,7 +52,8 @@
 	</form>
 	</div>
 	<script>
-		$(document).ready(function() {
+		$(function() {
+			$("#users").addClass("active");
 			//聚焦第一个输入框
 			$("#name").focus();
 			//为inputForm注册validate函数

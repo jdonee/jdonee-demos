@@ -32,7 +32,8 @@
 	</form>
 	</div>
 	<script>
-		$(document).ready(function() {
+		$(function() {
+			$("#tasks").addClass("active");
 			//聚焦第一个输入框
 			$("#task_title").focus();
 			//为inputForm注册validate函数
