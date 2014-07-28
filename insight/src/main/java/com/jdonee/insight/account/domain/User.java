@@ -16,10 +16,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.jdonee.insight.framework.domain.IdEntity;
-import com.jdonee.insight.framework.util.Constants;
-import com.jdonee.insight.framework.util.mybatis.MyBatisTableName;
-import com.jdonee.insight.framework.util.mybatis.MyBatisTransient;
+import com.jdonee.framework.domain.IdEntity;
+import com.jdonee.framework.util.Constants;
+import com.jdonee.framework.util.mybatis.MyBatisTableName;
+import com.jdonee.framework.util.mybatis.MyBatisTransient;
 
 @Data
 @NoArgsConstructor

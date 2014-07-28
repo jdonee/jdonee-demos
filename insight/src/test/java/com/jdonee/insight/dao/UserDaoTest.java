@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.google.common.collect.Maps;
 import com.jdonee.insight.account.dao.UserDao;
 import com.jdonee.insight.account.domain.User;
-import com.jdonee.insight.framework.util.pagination.Page;
+import com.jdonee.framework.util.pagination.Page;
 import com.jdonee.insight.junit.BaseJunitSTTestCase;
 
 public class UserDaoTest extends BaseJunitSTTestCase<User> {

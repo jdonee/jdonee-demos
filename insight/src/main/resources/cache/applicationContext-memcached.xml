@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
 	default-lazy-init="true">
 	<!-- SpyMemcached客户端 -->
-	<bean id="spyMemcachedClient" class="com.jdonee.insight.framework.util.commons.cache.memcached.SpyMemcachedClient">
+	<bean id="spyMemcachedClient" class="com.jdonee.framework.util.commons.cache.memcached.SpyMemcachedClient">
 		<property name="memcachedClient">
 			<bean class="net.spy.memcached.spring.MemcachedClientFactoryBean">
 				<property name="servers" value="${memcached.url}" />
@@ -21,7 +21,7 @@
 	
 	<beans profile="development,functional,test">
 		<!-- 演示用的JMemcached, 模拟Memcached服务器 -->
-		<bean id="memcachedSimulator" class="com.jdonee.insight.framework.util.commons.cache.memcached.MemcachedSimulator" lazy-init="false">
+		<bean id="memcachedSimulator" class="com.jdonee.framework.util.commons.cache.memcached.MemcachedSimulator" lazy-init="false">
 			<property name="serverUrl" value="${memcached.url}" />
 		</bean>
 	</beans>

@@ -5,13 +5,11 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd    	
      	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-     	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd"
-     	
+     	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd"     	
 	default-lazy-init="true">
 	
-	
 	<!-- mybatis 分页拦截 -->
-	<bean id="paginationInterceptor" class="com.jdonee.insight.framework.util.mybatis.PaginationInterceptor" />
+	<bean id="paginationInterceptor" class="com.jdonee.framework.util.mybatis.PaginationInterceptor" />
 
 	<!-- MyBatis配置 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -37,7 +35,7 @@
 	<!-- 扫描basePackage下所有以@MyBatisRepository标识的 接口 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.jdonee.insight.**.dao" />
-		<property name="annotationClass" value="com.jdonee.insight.framework.util.mybatis.MyBatisRepository" />
+		<property name="annotationClass" value="com.jdonee.framework.util.mybatis.MyBatisRepository" />
 	</bean>
 
 </beans>

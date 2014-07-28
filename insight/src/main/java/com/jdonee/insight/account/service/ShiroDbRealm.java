@@ -23,7 +23,7 @@ import org.apache.shiro.util.ByteSource;
 
 import com.google.common.base.Objects;
 import com.jdonee.insight.account.domain.User;
-import com.jdonee.insight.framework.util.commons.Encodes;
+import com.jdonee.framework.util.commons.Encodes;
 
 public class ShiroDbRealm extends AuthorizingRealm {
 

@@ -7,8 +7,8 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.jdonee.insight.framework.domain.IdEntity;
-import com.jdonee.insight.framework.util.mybatis.MyBatisTableName;
+import com.jdonee.framework.domain.IdEntity;
+import com.jdonee.framework.util.mybatis.MyBatisTableName;
 
 @Data
 @NoArgsConstructor

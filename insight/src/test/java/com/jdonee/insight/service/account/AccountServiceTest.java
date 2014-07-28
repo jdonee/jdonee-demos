@@ -16,10 +16,10 @@ import com.jdonee.insight.account.domain.User;
 import com.jdonee.insight.account.service.AccountService;
 import com.jdonee.insight.account.service.ShiroDbRealm.ShiroUser;
 import com.jdonee.insight.data.UserData;
-import com.jdonee.insight.framework.service.BusinessLogger;
-import com.jdonee.insight.framework.service.ServiceException;
-import com.jdonee.insight.framework.util.commons.Clock.MockClock;
-import com.jdonee.insight.framework.util.mybatis.MyBatisTableName;
+import com.jdonee.framework.service.BusinessLogger;
+import com.jdonee.framework.service.ServiceException;
+import com.jdonee.framework.util.commons.Clock.MockClock;
+import com.jdonee.framework.util.mybatis.MyBatisTableName;
 import com.jdonee.insight.shiro.ShiroTestUtils;
 import com.jdonee.insight.task.service.TaskService;
 

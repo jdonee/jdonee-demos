@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.jdonee.insight.framework.util.commons.beanvalidator.BeanValidators;
-import com.jdonee.insight.framework.util.commons.mapper.BeanMapper;
-import com.jdonee.insight.framework.web.MediaTypes;
-import com.jdonee.insight.framework.web.RestException;
+import com.jdonee.framework.util.commons.beanvalidator.BeanValidators;
+import com.jdonee.framework.util.commons.mapper.BeanMapper;
+import com.jdonee.framework.web.MediaTypes;
+import com.jdonee.framework.web.RestException;
 import com.jdonee.insight.task.domain.Task;
 import com.jdonee.insight.task.dto.TaskDTO;
 import com.jdonee.insight.task.service.TaskService;

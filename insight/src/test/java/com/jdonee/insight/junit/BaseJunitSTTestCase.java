@@ -8,8 +8,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
-import com.jdonee.insight.framework.util.commons.GenericsUtils;
-import com.jdonee.insight.framework.util.mybatis.MyBatisTableName;
+import com.jdonee.framework.util.commons.GenericsUtils;
+import com.jdonee.framework.util.mybatis.MyBatisTableName;
 import com.jdonee.insight.spring.Profiles;
 import com.jdonee.insight.spring.SpringTransactionalTestCase;
 

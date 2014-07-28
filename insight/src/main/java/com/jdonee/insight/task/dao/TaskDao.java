@@ -4,10 +4,10 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.jdonee.insight.framework.dao.BaseDao;
+import com.jdonee.framework.dao.BaseDao;
 import com.jdonee.insight.task.domain.Task;
 
-@com.jdonee.insight.framework.util.mybatis.MyBatisRepository
+@com.jdonee.framework.util.mybatis.MyBatisRepository
 public interface TaskDao extends BaseDao<Task, Long> {
 
 	/**
