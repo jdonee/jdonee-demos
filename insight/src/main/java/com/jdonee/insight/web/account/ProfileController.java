@@ -5,18 +5,21 @@
  *******************************************************************************/
 package com.jdonee.insight.web.account;
 
-import javax.validation.*;
+import javax.validation.Valid;
 
-import org.apache.shiro.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.context.annotation.*;
-import org.springframework.stereotype.*;
-import org.springframework.ui.*;
-import org.springframework.web.bind.annotation.*;
+import org.apache.shiro.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.jdonee.insight.domain.demo.*;
-import com.jdonee.insight.service.account.*;
-import com.jdonee.insight.service.account.ShiroDbRealm.ShiroUser;
+import com.jdonee.insight.account.domain.User;
+import com.jdonee.insight.account.service.AccountService;
+import com.jdonee.insight.account.service.ShiroDbRealm.ShiroUser;
 
 /**
  * 用户修改自己资料的Controller.

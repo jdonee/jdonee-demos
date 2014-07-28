@@ -8,7 +8,7 @@ package com.jdonee.insight.data;
 import java.util.List;
 
 import com.google.common.collect.Lists;
-import com.jdonee.insight.domain.demo.Task;
+import com.jdonee.insight.task.domain.Task;
 
 /**
  * Task相关实体测试数据生成.

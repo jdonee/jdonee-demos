@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.jdonee.insight.domain.demo.User;
-import com.jdonee.insight.service.account.AccountService;
+import com.jdonee.insight.account.domain.User;
+import com.jdonee.insight.account.service.AccountService;
 
 /**
  * 用户注册的Controller.

@@ -18,12 +18,12 @@ import org.springframework.test.annotation.Rollback;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.jdonee.insight.dao.demo.TaskDao;
 import com.jdonee.insight.data.TaskData;
-import com.jdonee.insight.domain.demo.Task;
+import com.jdonee.insight.framework.util.mybatis.MyBatisTableName;
+import com.jdonee.insight.framework.util.pagination.Page;
 import com.jdonee.insight.junit.BaseJunitSTTestCase;
-import com.jdonee.insight.util.mybatis.MyBatisTableName;
-import com.jdonee.insight.util.pagination.Page;
+import com.jdonee.insight.task.dao.TaskDao;
+import com.jdonee.insight.task.domain.Task;
 
 public class TaskDaoTest extends BaseJunitSTTestCase<Task> {
 
