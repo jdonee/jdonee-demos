@@ -50,11 +50,11 @@
 		<cdbi.jdbc.url>jdbc:mysql://${host.url}:3306/mysql</cdbi.jdbc.url>
 		<jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
 	</properties>
-	
+
 	<prerequisites>
-  		<maven>3.0.0</maven>
+		<maven>3.0.0</maven>
 	</prerequisites>
-	
+
 	<dependencies>
 		<!-- SPRING start -->
 		<dependency>
@@ -189,6 +189,47 @@
 			<version>${shiro.version}</version>
 		</dependency>
 		<!-- SECURITY end -->
+
+		<!-- monitor application -->
+		<dependency>
+			<groupId>net.bull.javamelody</groupId>
+			<artifactId>javamelody-core</artifactId>
+			<version>1.52.0</version>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- itext, option to add PDF export -->
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
+			<scope>runtime</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>bcmail-jdk14</artifactId>
+					<groupId>bouncycastle</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>bcprov-jdk14</artifactId>
+					<groupId>bouncycastle</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>bctsp-jdk14</artifactId>
+					<groupId>bouncycastle</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.2</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jrobin</groupId>
+			<artifactId>jrobin</artifactId>
+			<version>1.5.9</version>
+			<scope>runtime</scope>
+		</dependency>
 
 		<!-- JSR303 BeanValidator -->
 		<dependency>
@@ -326,10 +367,10 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-	      <groupId>org.projectlombok</groupId>
-	      <artifactId>lombok</artifactId>
-	      <version>${lombok.version}</version>
-	    </dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+		</dependency>
 		<!-- template engine -->
 		<dependency>
 			<groupId>org.freemarker</groupId>
@@ -362,7 +403,6 @@
 			<groupId>com.thimbleware.jmemcached</groupId>
 			<artifactId>jmemcached-core</artifactId>
 			<version>1.0.0</version>
-			<scope>runtime</scope>
 		</dependency>
 
 		<!-- GENERAL UTILS end -->
@@ -396,7 +436,7 @@
 		</dependency>
 		<!-- TEST end -->
 	</dependencies>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -413,7 +453,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<build>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
@@ -459,7 +499,7 @@
 				<version>2.4</version>
 				<configuration>
 					<warName>${project.build.finalName}</warName>
-					<warSourceExcludes>**/webdefault.xml</warSourceExcludes> 
+					<warSourceExcludes>**/webdefault.xml</warSourceExcludes>
 					<packagingExcludes>**/webdefault.xml</packagingExcludes>
 					<webResources>
 						<resource>
@@ -544,7 +584,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<!-- jetty插件, 设定context path与spring profile -->
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
@@ -585,7 +625,7 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
