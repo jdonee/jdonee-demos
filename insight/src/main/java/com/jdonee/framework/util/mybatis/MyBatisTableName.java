@@ -20,16 +20,9 @@ import java.lang.annotation.Target;
 public @interface MyBatisTableName {
 
 	/**
-	 * 单表名称
+	 * 表名称
 	 * 
 	 * @return
 	 */
 	String name() default "";
-
-	/**
-	 * 多表名称(可选)
-	 * 
-	 * @return
-	 */
-	String names() default "";
 }

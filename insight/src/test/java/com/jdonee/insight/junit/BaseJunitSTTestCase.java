@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.jdonee.insight.junit;
 
 import org.junit.Before;

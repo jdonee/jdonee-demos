@@ -1,8 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2005, 2014 springside.github.io
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- *******************************************************************************/
 package com.jdonee.insight.dao;
 
 import static org.assertj.core.api.Assertions.*;
@@ -11,16 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.jdonee.insight.data.TaskData;
-import com.jdonee.framework.util.mybatis.MyBatisTableName;
 import com.jdonee.framework.util.pagination.Page;
+import com.jdonee.insight.data.TaskData;
 import com.jdonee.insight.junit.BaseJunitSTTestCase;
 import com.jdonee.insight.task.dao.TaskDao;
 import com.jdonee.insight.task.domain.Task;
@@ -29,16 +22,6 @@ public class TaskDaoTest extends BaseJunitSTTestCase<Task> {
 
 	@Autowired
 	private TaskDao taskDao;
-
-	@Override
-	@Before
-	public void setUp() {
-		MyBatisTableName table = Task.class.getAnnotation(MyBatisTableName.class);
-		if (null == table) {
-			throw new RuntimeException("类-" + Task.class + ",未用@MyBatisTableName注解标识!!");
-		}
-		tableName = table.name();
-	}
 
 	@Test
 	public void getPage() throws Exception {
@@ -74,10 +57,12 @@ public class TaskDaoTest extends BaseJunitSTTestCase<Task> {
 
 	@Test
 	@Rollback(true)
-	public void saveBatch() {
+	public void saveOrUpdateBatch() {
 		List<Task> tasks = TaskData.randomTasks(10);
 		int result = taskDao.saveBatch(tableName, tasks);
 		assertThat(result).isEqualTo(10);
+		tasks = taskDao.findListByParams(tableName, ImmutableMap.of("userId", (Object) 1L));
+		assertThat(tasks.size()).isEqualTo(10);
 	}
 
 }

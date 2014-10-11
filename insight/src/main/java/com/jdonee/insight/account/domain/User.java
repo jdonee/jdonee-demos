@@ -7,6 +7,7 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +23,7 @@ import com.jdonee.framework.util.mybatis.MyBatisTableName;
 import com.jdonee.framework.util.mybatis.MyBatisTransient;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @MyBatisTableName(name = "tb_user")
 public class User extends IdEntity implements Serializable {

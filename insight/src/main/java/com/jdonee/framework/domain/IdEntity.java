@@ -20,18 +20,12 @@ public abstract class IdEntity {
 	@JsonIgnore
 	protected String tableName;
 
-	/**
-	 * 保存时写入表(组合)名称
-	 */
-	@MyBatisTransient
-	@JsonIgnore
-	protected String tableNames;
-
 	public IdEntity() {
 		super();
 		MyBatisTableName table = this.getClass().getAnnotation(MyBatisTableName.class);
-		this.tableName = table.name();
-		this.tableNames = table.names();
+		if (table != null) {
+			this.tableName = table.name();
+		}
 	}
 
 	public Long getId() {
