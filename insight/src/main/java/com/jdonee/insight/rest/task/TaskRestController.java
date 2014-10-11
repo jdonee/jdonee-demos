@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.jdonee.insight.MediaTypes;
-import com.jdonee.insight.domain.demo.Task;
-import com.jdonee.insight.dto.TaskDTO;
-import com.jdonee.insight.rest.RestException;
-import com.jdonee.insight.service.task.TaskService;
-import com.jdonee.insight.util.commons.beanvalidator.BeanValidators;
-import com.jdonee.insight.util.commons.mapper.BeanMapper;
+import com.jdonee.framework.util.commons.beanvalidator.BeanValidators;
+import com.jdonee.framework.util.commons.mapper.BeanMapper;
+import com.jdonee.framework.web.MediaTypes;
+import com.jdonee.framework.web.RestException;
+import com.jdonee.insight.task.domain.Task;
+import com.jdonee.insight.task.dto.TaskDTO;
+import com.jdonee.insight.task.service.TaskService;
 
 /**
  * Task的Restful API的Controller.

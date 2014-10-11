@@ -17,15 +17,15 @@
 		<shiro.version>1.2.2</shiro.version>
 		<hibernate-validator.version>5.0.3.Final</hibernate-validator.version>
 		<slf4j.version>1.7.6</slf4j.version>
-		<spring.version>4.0.2.RELEASE</spring.version>
-		<mybatis.version>3.2.6</mybatis.version>
+		<spring.version>4.0.6.RELEASE</spring.version>
+		<mybatis.version>3.2.7</mybatis.version>
 		<tomcat-jdbc.version>7.0.52</tomcat-jdbc.version>
 		<sitemesh.version>2.4.2</sitemesh.version>
-		<jackson.version>2.3.1</jackson.version>
-		<logback.version>1.1.1</logback.version>
+		<jackson.version>2.4.1</jackson.version>
+		<logback.version>1.1.2</logback.version>
 		<commons-lang3.version>3.2.1</commons-lang3.version>
 		<commons-io.version>2.4</commons-io.version>
-		<guava.version>16.0.1</guava.version>
+		<guava.version>17.0</guava.version>
 		<joda-time.version>2.3</joda-time.version>
 		<dozer.version>5.4.0</dozer.version>
 		<freemarker.version>2.3.20</freemarker.version>
@@ -33,8 +33,9 @@
 		<junit.version>4.11</junit.version>
 		<assertj.version>1.5.0</assertj.version>
 		<mockito.version>1.9.5</mockito.version>
-		<jetty.version>7.6.14.v20131031</jetty.version>
-		<wro4j.version>1.7.4</wro4j.version>
+		<jetty.version>8.1.15.v20140411</jetty.version>
+		<wro4j.version>1.7.6</wro4j.version>
+		<lombok.version>1.14.4</lombok.version>
 
 		<!-- 其它定义 -->
 		<jdbc.driver.groupId>mysql</jdbc.driver.groupId>
@@ -49,11 +50,11 @@
 		<cdbi.jdbc.url>jdbc:mysql://${host.url}:3306/mysql</cdbi.jdbc.url>
 		<jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
 	</properties>
-	
+
 	<prerequisites>
-  		<maven>3.0.0</maven>
+		<maven>3.0.0</maven>
 	</prerequisites>
-	
+
 	<dependencies>
 		<!-- SPRING start -->
 		<dependency>
@@ -188,6 +189,47 @@
 			<version>${shiro.version}</version>
 		</dependency>
 		<!-- SECURITY end -->
+
+		<!-- monitor application -->
+		<dependency>
+			<groupId>net.bull.javamelody</groupId>
+			<artifactId>javamelody-core</artifactId>
+			<version>1.52.0</version>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- itext, option to add PDF export -->
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
+			<scope>runtime</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>bcmail-jdk14</artifactId>
+					<groupId>bouncycastle</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>bcprov-jdk14</artifactId>
+					<groupId>bouncycastle</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>bctsp-jdk14</artifactId>
+					<groupId>bouncycastle</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.2</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jrobin</groupId>
+			<artifactId>jrobin</artifactId>
+			<version>1.5.9</version>
+			<scope>runtime</scope>
+		</dependency>
 
 		<!-- JSR303 BeanValidator -->
 		<dependency>
@@ -324,6 +366,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+		</dependency>
 		<!-- template engine -->
 		<dependency>
 			<groupId>org.freemarker</groupId>
@@ -356,7 +403,6 @@
 			<groupId>com.thimbleware.jmemcached</groupId>
 			<artifactId>jmemcached-core</artifactId>
 			<version>1.0.0</version>
-			<scope>runtime</scope>
 		</dependency>
 
 		<!-- GENERAL UTILS end -->
@@ -390,7 +436,7 @@
 		</dependency>
 		<!-- TEST end -->
 	</dependencies>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -407,7 +453,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<build>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
@@ -453,7 +499,8 @@
 				<version>2.4</version>
 				<configuration>
 					<warName>${project.build.finalName}</warName>
-					<!-- <warSourceExcludes>**/webdefault.xml</warSourceExcludes> <packagingExcludes>**/webdefault.xml,**/rebel.xml</packagingExcludes> -->
+					<warSourceExcludes>**/webdefault.xml</warSourceExcludes>
+					<packagingExcludes>**/webdefault.xml</packagingExcludes>
 					<webResources>
 						<resource>
 							<filtering>true</filtering>
@@ -470,7 +517,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.16</version>
+				<version>2.17</version>
 				<configuration>
 					<includes>
 						<include>**/*Test.java</include>
@@ -481,7 +528,7 @@
 					<dependency>
 						<groupId>org.apache.maven.surefire</groupId>
 						<artifactId>surefire-junit47</artifactId>
-						<version>2.16</version>
+						<version>2.17</version>
 					</dependency>
 				</dependencies>
 			</plugin>
@@ -538,29 +585,15 @@
 				</executions>
 			</plugin>
 
-			<!-- tomcat插件 -->
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.1</version>
-				<configuration>
-					<uriEncoding>UTF-8</uriEncoding>   <!--tomcat的url编码 达到和修改server.xml文件一样的功能 -->
-					<path>/${project.build.finalName}</path>
-					<!-- optionnal system propoerties you want to add -->
-					<systemProperties>
-						<spring.profiles.active>development</spring.profiles.active>
-					</systemProperties>
-					<!-- if you want to use test dependencies rather than only runtime -->
-					<useTestClasspath>false</useTestClasspath>
-				</configuration>
-			</plugin>
-			
 			<!-- jetty插件, 设定context path与spring profile -->
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>${jetty.version}</version>
 				<configuration>
+					<reload>manual</reload>
+					<stopPort>9976</stopPort>
+					<stopKey>foo</stopKey>
 					<systemProperties>
 						<systemProperty>
 							<name>spring.profiles.active</name>
@@ -569,6 +602,7 @@
 					</systemProperties>
 					<useTestClasspath>true</useTestClasspath>
 					<webAppConfig>
+						<defaultsDescriptor>src/main/resources/webdefault.xml</defaultsDescriptor><!--更改源文件中useFileMappedBuffer参数为false用于调试 -->
 						<contextPath>/${project.artifactId}</contextPath>
 					</webAppConfig>
 				</configuration>
@@ -606,6 +640,19 @@
 										<versionRange>[1.0.5,)</versionRange>
 										<goals>
 											<goal>generate</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-enforcer-plugin</artifactId>
+										<versionRange>[1.3.1,)</versionRange>
+										<goals>
+											<goal>enforce</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>

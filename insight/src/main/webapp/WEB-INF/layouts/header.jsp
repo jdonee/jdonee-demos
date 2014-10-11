@@ -2,27 +2,44 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
-<div id="header">
-	<div id="title">
-	    <h1><a href="${ctx}">QuickStart示例</a><small>--TodoList应用演示</small>
-	    <shiro:user>
-			<div class="btn-group pull-right">
-				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-					<i class="icon-user"></i> <shiro:principal property="name"/>
+
+<header role="banner" id="top" class="navbar navbar-green navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button data-target=".bs-navbar-collapse" data-toggle="collapse" type="button" class="navbar-toggle collapsed">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="${ctx}/">任务清单</a>
+    </div>
+    <nav role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
+      <ul class="nav navbar-nav">
+		<li id="tasks"><a href="${ctx}/task">任务管理</a></li>
+        <shiro:hasRole name="admin">
+			<li id="users"><a href="${ctx}/admin/user">用户管理</a></li>
+		</shiro:hasRole>
+        <li>
+          <a href="${ctx}/api">REST API</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+        <shiro:user>
+			<div class="btn-group pull-right pull-position">
+				<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
+					<i class="glyphicon glyphicon-user"></i> <shiro:principal property="name"/>
 					<span class="caret"></span>
 				</a>
-			
 				<ul class="dropdown-menu">
-					<shiro:hasRole name="admin">
-						<li><a href="${ctx}/admin/user">Admin Users</a></li>
-						<li class="divider"></li>
-					</shiro:hasRole>
-					<li><a href="${ctx}/api">APIs</a></li>
-					<li><a href="${ctx}/profile">Edit Profile</a></li>
-					<li><a href="${ctx}/logout">Logout</a></li>
+					<li><a href="${ctx}/profile">个人中心</a></li>
+					<li><a href="${ctx}/logout">登出</a></li>
 				</ul>
 			</div>
 		</shiro:user>
-		</h1>
-	</div>
-</div>
+		</li>
+      </ul>
+    </nav>
+  </div>
+</header>

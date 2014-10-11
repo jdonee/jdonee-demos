@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jdonee.insight.domain.demo.User;
-import com.jdonee.insight.dto.UserDTO;
-import com.jdonee.insight.rest.RestException;
-import com.jdonee.insight.service.account.AccountService;
-import com.jdonee.insight.util.commons.mapper.BeanMapper;
+import com.jdonee.insight.account.domain.User;
+import com.jdonee.insight.account.dto.UserDTO;
+import com.jdonee.insight.account.service.AccountService;
+import com.jdonee.framework.util.commons.mapper.BeanMapper;
+import com.jdonee.framework.web.RestException;
 
 /**
  * Shiro的配置文件中对/api/secure/**进行拦截，要求authBasic认证.

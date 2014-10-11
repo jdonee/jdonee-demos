@@ -5,19 +5,23 @@
  *******************************************************************************/
 package com.jdonee.insight.web.account;
 
-import java.util.*;
+import java.util.List;
 
-import javax.validation.*;
+import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.context.annotation.*;
-import org.springframework.stereotype.*;
-import org.springframework.ui.*;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.jdonee.insight.domain.demo.*;
-import com.jdonee.insight.service.account.*;
+import com.jdonee.insight.account.domain.User;
+import com.jdonee.insight.account.service.AccountService;
 
 /**
  * 管理员管理用户的Controller.

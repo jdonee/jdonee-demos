@@ -48,6 +48,34 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<!-- monitor application -->
+	<filter>
+		<filter-name>monitoring</filter-name>
+		<filter-class>net.bull.javamelody.MonitoringFilter</filter-class>
+		<init-param>
+			<!-- 不监控静态资源 -->
+			<param-name>url-exclude-pattern</param-name>
+			<param-value>/bundle/*</param-value>
+		</init-param>
+		<init-param>
+			<!-- 开启info级别的日志记录 -->
+			<param-name>log</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<!-- 默认false,配置为true将不再监控 -->
+			<param-name>disable</param-name>
+			<param-value>false</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>monitoring</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<listener>
+		<listener-class>net.bull.javamelody.SessionListener</listener-class>
+	</listener>
+
 	<filter>
 		<filter-name>WebResourceOptimizer</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>

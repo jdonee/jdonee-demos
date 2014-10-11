@@ -14,9 +14,12 @@
 	</c:if>
 	<div class="row">
 		<div class="span4 offset7">
-			<form class="form-search" action="${ctx}/task">
-				<label>名称：</label> <input type="text" name="search_title" class="input-medium" value="${param.search_title}"> 
-				<button type="submit" class="btn" id="search_btn">Search</button>
+			<form class="form-inline" action="${ctx}/task">
+				<div class="form-group">
+			    	<label for="search_title">名称：</label>
+			    	<input type="text" name="search_title" class="form-control" placeholder="输入关键字..." value="${param.search_title}">
+			  	</div>
+				<button type="submit" class="btn btn-default" id="search_btn">搜索</button>
 		    </form>
 	    </div>
 	    <tags:sort/>
@@ -43,6 +46,11 @@
 	
 	<tags:pagination page="${tasks}" paginationSize="5"/>
 
-	<div><a class="btn" href="${ctx}/task/create">创建任务</a></div>
+	<div><a class="btn btn-default" href="${ctx}/task/create">创建任务</a></div>
+	<script>
+		$(function() {
+			$("#tasks").addClass("active");
+		});
+	</script>
 </body>
 </html>

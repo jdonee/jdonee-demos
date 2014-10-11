@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.jdonee.insight.junit;
 
 import org.junit.Before;
@@ -8,10 +5,10 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
+import com.jdonee.framework.util.commons.GenericsUtils;
+import com.jdonee.framework.util.mybatis.MyBatisTableName;
 import com.jdonee.insight.spring.Profiles;
 import com.jdonee.insight.spring.SpringTransactionalTestCase;
-import com.jdonee.insight.util.commons.GenericsUtils;
-import com.jdonee.insight.util.mybatis.MyBatisTableName;
 
 /**
  * 事务单元测试基类

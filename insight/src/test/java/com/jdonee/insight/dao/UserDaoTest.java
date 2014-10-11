@@ -15,10 +15,10 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.collect.Maps;
-import com.jdonee.insight.dao.demo.UserDao;
-import com.jdonee.insight.domain.demo.User;
+import com.jdonee.insight.account.dao.UserDao;
+import com.jdonee.insight.account.domain.User;
+import com.jdonee.framework.util.pagination.Page;
 import com.jdonee.insight.junit.BaseJunitSTTestCase;
-import com.jdonee.insight.util.pagination.Page;
 
 public class UserDaoTest extends BaseJunitSTTestCase<User> {
 

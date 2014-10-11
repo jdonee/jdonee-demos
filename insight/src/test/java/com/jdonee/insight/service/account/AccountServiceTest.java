@@ -11,16 +11,17 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.jdonee.insight.dao.demo.UserDao;
+import com.jdonee.framework.service.BusinessLogger;
+import com.jdonee.framework.service.ServiceException;
+import com.jdonee.framework.util.commons.Clock.MockClock;
+import com.jdonee.framework.util.mybatis.MyBatisTableName;
+import com.jdonee.insight.account.dao.UserDao;
+import com.jdonee.insight.account.domain.User;
+import com.jdonee.insight.account.service.AccountService;
+import com.jdonee.insight.account.service.ShiroDbRealm.ShiroUser;
 import com.jdonee.insight.data.UserData;
-import com.jdonee.insight.domain.demo.User;
-import com.jdonee.insight.service.BusinessLogger;
-import com.jdonee.insight.service.ServiceException;
-import com.jdonee.insight.service.account.ShiroDbRealm.ShiroUser;
-import com.jdonee.insight.service.task.TaskService;
 import com.jdonee.insight.shiro.ShiroTestUtils;
-import com.jdonee.insight.util.commons.Clock.MockClock;
-import com.jdonee.insight.util.mybatis.MyBatisTableName;
+import com.jdonee.insight.task.service.TaskService;
 
 public class AccountServiceTest {
 
@@ -41,11 +42,7 @@ public class AccountServiceTest {
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		MyBatisTableName table = User.class.getAnnotation(MyBatisTableName.class);
-		if (null == table) {
-			throw new RuntimeException("类-" + User.class + ",未用@MyBatisTableName注解标识!!");
-		}
-		tableName = table.name();
+		tableName = User.class.getAnnotation(MyBatisTableName.class).name();
 		ShiroTestUtils.mockSubject(new ShiroUser(3L, "foo", "Foo"));
 	}
 

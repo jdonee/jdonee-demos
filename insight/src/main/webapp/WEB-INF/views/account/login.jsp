@@ -63,7 +63,7 @@
 	</div>
 
 	<script>
-	$(document).ready(function() {
+	$(function() {
 			$("#loginForm").validate();
 		});
 	</script>

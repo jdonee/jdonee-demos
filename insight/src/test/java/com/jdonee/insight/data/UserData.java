@@ -1,6 +1,6 @@
 package com.jdonee.insight.data;
 
-import com.jdonee.insight.domain.demo.User;
+import com.jdonee.insight.account.domain.User;
 
 /**
  * User相关实体测试数据生成.
