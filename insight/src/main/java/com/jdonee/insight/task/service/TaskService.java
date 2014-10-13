@@ -13,13 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
-import com.jdonee.insight.account.domain.User;
-import com.jdonee.insight.account.dto.UserDTO;
-import com.jdonee.insight.account.service.AccountService;
 import com.jdonee.framework.service.BaseService;
 import com.jdonee.framework.util.commons.Collections3;
 import com.jdonee.framework.util.commons.mapper.BeanMapper;
 import com.jdonee.framework.util.pagination.Page;
+import com.jdonee.insight.account.domain.User;
+import com.jdonee.insight.account.dto.UserDTO;
+import com.jdonee.insight.account.service.AccountService;
 import com.jdonee.insight.task.dao.TaskDao;
 import com.jdonee.insight.task.domain.Task;
 import com.jdonee.insight.task.dto.TaskDTO;
@@ -63,7 +63,8 @@ public class TaskService extends BaseService<Task, Long> {
 	public Page<TaskDTO> findTaskPage(Page<TaskDTO> page) {
 		int dataCount = this.count(page.getParamsMap());
 		page.setDataCount(dataCount);
-		List<Task> pageList = this.findPageList(page.getParamsMap(), page.getOffset(), page.getLimit());
+		List<Task> pageList = this.findPageList(page.getParamsMap(), page.getPageSort(), page.getOffset(),
+				page.getLimit());
 		if (Collections3.isNotEmpty(pageList)) {
 			List<TaskDTO> taskDtos = Lists.newArrayList();
 			for (Task task : pageList) {

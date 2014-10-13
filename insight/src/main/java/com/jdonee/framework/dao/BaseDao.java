@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import com.jdonee.framework.util.mybatis.MyBatisRepository;
+import com.jdonee.framework.util.pagination.Page.Sort;
 
 /**
  * 数据库操作基础接口，封装了常用的操作函数
@@ -107,7 +108,7 @@ public interface BaseDao<T, PK extends Serializable> extends Serializable {
 	 * @return
 	 */
 	List<T> findPageList(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_PARAMS) Map<String, Object> params,
-			RowBounds rowBounds);
+			Sort sort, RowBounds rowBounds);
 
 	/**
 	 * 统计

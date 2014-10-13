@@ -15,9 +15,9 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.collect.Maps;
+import com.jdonee.framework.util.pagination.Page;
 import com.jdonee.insight.account.dao.UserDao;
 import com.jdonee.insight.account.domain.User;
-import com.jdonee.framework.util.pagination.Page;
 import com.jdonee.insight.junit.BaseJunitSTTestCase;
 
 public class UserDaoTest extends BaseJunitSTTestCase<User> {
@@ -30,13 +30,13 @@ public class UserDaoTest extends BaseJunitSTTestCase<User> {
 		Page<User> userPage = new Page();
 		Map<String, Object> paramsMap = Maps.newHashMap();
 		userPage.setParamsMap(paramsMap);
-		List<User> users = userDao.findPageList(tableName, userPage.getParamsMap(), new RowBounds(userPage.getOffset(),
-				userPage.getLimit()));
+		List<User> users = userDao.findPageList(tableName, userPage.getParamsMap(), userPage.getPageSort(),
+				new RowBounds(userPage.getOffset(), userPage.getLimit()));
 		userPage.setResult(users);
 		assertThat(userPage.getResult()).hasSize(2);
 		assertThat(userPage.getResult().get(0).getId()).isEqualTo(1);
 		paramsMap.put("id", 99999L);
-		users = userDao.findPageList(tableName, userPage.getParamsMap(),
+		users = userDao.findPageList(tableName, userPage.getParamsMap(), userPage.getPageSort(),
 				new RowBounds(userPage.getOffset(), userPage.getLimit()));
 		userPage.setResult(users);
 		assertThat(userPage.getResult()).isEmpty();

@@ -11,6 +11,7 @@ import com.jdonee.framework.dao.BaseDao;
 import com.jdonee.framework.util.commons.GenericsUtils;
 import com.jdonee.framework.util.mybatis.MyBatisTableName;
 import com.jdonee.framework.util.pagination.Page;
+import com.jdonee.framework.util.pagination.Page.Sort;
 
 /**
  * @author ZengAihui
@@ -82,7 +83,7 @@ public abstract class BaseService<T, PK extends Serializable> {
 	public Page<T> findPage(Page<T> page) {
 		page.setDataCount(count(page.getParamsMap()));
 		RowBounds rowBounds = new RowBounds(page.getOffset(), page.getLimit());// 使用RowBounds计算偏移量和偏移总数
-		List<T> pageList = baseDao.findPageList(tableName, page.getParamsMap(), rowBounds);
+		List<T> pageList = baseDao.findPageList(tableName, page.getParamsMap(), page.getPageSort(), rowBounds);
 		page.setResult(pageList);
 		return page;
 	}
@@ -91,9 +92,9 @@ public abstract class BaseService<T, PK extends Serializable> {
 		return baseDao.count(tableName, params);
 	}
 
-	public List<T> findPageList(Map params, int offset, int limit) {
+	public List<T> findPageList(Map params, Sort sort, int offset, int limit) {
 		RowBounds rowBounds = new RowBounds(offset, limit);// 使用RowBounds计算偏移量和偏移总数
-		return baseDao.findPageList(tableName, params, rowBounds);
+		return baseDao.findPageList(tableName, params, sort, rowBounds);
 	}
 
 }

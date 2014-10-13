@@ -175,6 +175,12 @@ public class Page<T> implements Serializable {
 		// 降序
 		private boolean desc;
 
+		public Sort(String sortItem, boolean desc) {
+			super();
+			this.sortItem = sortItem;
+			this.desc = desc;
+		}
+
 		public Sort(String sortItem, String sortColumn, boolean desc) {
 			super();
 			this.sortItem = sortItem;
