@@ -34,7 +34,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		<c:forEach items="${tasks.result}" var="task">
+		<c:forEach items="${tasks.list}" var="task">
 			<tr>
 				<td><a href="${ctx}/task/update/${task.id}">${task.title}</a></td>
 				<td>${task.user.name}</td>

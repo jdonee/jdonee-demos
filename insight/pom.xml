@@ -126,6 +126,12 @@
 			<artifactId>mybatis</artifactId>
 			<version>${mybatis.version}</version>
 		</dependency>
+		<!--可选依赖，如果使用就会处理order by，如果不使用就不会处理order by-->
+		<dependency>
+		    <groupId>com.foundationdb</groupId>
+		    <artifactId>fdb-sql-parser</artifactId>
+		    <version>1.3.0</version>
+		</dependency>
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>

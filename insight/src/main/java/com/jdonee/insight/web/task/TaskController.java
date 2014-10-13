@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Maps;
-import com.jdonee.framework.util.pagination.Page;
+import com.jdonee.framework.util.pagehelper.PageInfo;
 import com.jdonee.framework.web.Servlets;
 import com.jdonee.insight.account.service.ShiroDbRealm.ShiroUser;
 import com.jdonee.insight.task.domain.Task;
@@ -66,16 +66,13 @@ public class TaskController {
 		Map<String, Object> searchParams = Servlets.getParametersStartingWith(request, "search_");
 		Long userId = getCurrentUserId();
 		searchParams.put("userId", userId);
-		Page<TaskDTO> tasks = new Page<TaskDTO>(pageSize, pageNumber);
-		tasks.setParamsMap(searchParams);
-		tasks = taskService.findTaskPage(tasks);
+		PageInfo<TaskDTO> tasks = taskService.findTaskPage(searchParams, pageNumber, pageSize);
 		model.addAttribute("tasks", tasks);
 		model.addAttribute("sortType", sortType);
 		model.addAttribute("sortTypes", sortTypes);
 		// 将搜索条件编码成字符串，用于排序，分页的URL
 		searchParams.remove("userId");
 		model.addAttribute("searchParams", Servlets.encodeParameterStringWithPrefix(searchParams, "search_"));
-
 		return "task/taskList";
 	}
 

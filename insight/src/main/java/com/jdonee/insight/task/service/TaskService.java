@@ -6,6 +6,7 @@
 package com.jdonee.insight.task.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,8 @@ import com.google.common.collect.Lists;
 import com.jdonee.framework.service.BaseService;
 import com.jdonee.framework.util.commons.Collections3;
 import com.jdonee.framework.util.commons.mapper.BeanMapper;
-import com.jdonee.framework.util.pagination.Page;
+import com.jdonee.framework.util.pagehelper.PageHelper;
+import com.jdonee.framework.util.pagehelper.PageInfo;
 import com.jdonee.insight.account.domain.User;
 import com.jdonee.insight.account.dto.UserDTO;
 import com.jdonee.insight.account.service.AccountService;
@@ -60,20 +62,19 @@ public class TaskService extends BaseService<Task, Long> {
 		return taskDtos;
 	}
 
-	public Page<TaskDTO> findTaskPage(Page<TaskDTO> page) {
-		int dataCount = this.count(page.getParamsMap());
-		page.setDataCount(dataCount);
-		List<Task> pageList = this.findPageList(page.getParamsMap(), page.getPageSort(), page.getOffset(),
-				page.getLimit());
+	public PageInfo<TaskDTO> findTaskPage(Map params, int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<Task> pageList = baseDao.findListByParams(tableName, params);
 		if (Collections3.isNotEmpty(pageList)) {
 			List<TaskDTO> taskDtos = Lists.newArrayList();
 			for (Task task : pageList) {
 				TaskDTO taskDTO = toDTO(task);
 				taskDtos.add(taskDTO);
 			}
-			page.setResult(taskDtos);
+			return new PageInfo(taskDtos);
+		} else {
+			return null;
 		}
-		return page;
 	}
 
 	private TaskDTO toDTO(final Task task) {

@@ -1,13 +1,13 @@
 <%@tag pageEncoding="UTF-8"%>
-<%@ attribute name="page" type="com.jdonee.framework.util.pagination.Page" required="true"%>
+<%@ attribute name="page" type="com.jdonee.framework.util.pagehelper.PageInfo" required="true"%>
 <%@ attribute name="paginationSize" type="java.lang.Integer" required="true"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-int current =  page.getCurrentPage();
+int current =  page.getPageNum();
 int begin = Math.max(1, current - paginationSize/2);
-int end = Math.min(begin + (paginationSize - 1), page.getMaxPage());
+int end = Math.min(begin + (paginationSize - 1), page.getPages());
 
 request.setAttribute("current", current);
 request.setAttribute("begin", begin);
@@ -15,7 +15,7 @@ request.setAttribute("end", end);
 %>
 
 <ul class="pagination">
-		 <% if (page.isPrev()){%>
+		 <% if (page.isHasPreviousPage()){%>
                	<li><a href="?page=1&sortType=${sortType}&${searchParams}">&lt;&lt;</a></li>
                 <li><a href="?page=${current-1}&sortType=${sortType}&${searchParams}">&lt;</a></li>
          <%}else{%>
@@ -34,9 +34,9 @@ request.setAttribute("end", end);
             </c:choose>
         </c:forEach>
 	  
-	  	 <% if (page.isNext()){%>
+	  	 <% if (page.isHasNextPage()){%>
                	<li><a href="?page=${current+1}&sortType=${sortType}&${searchParams}">&gt;</a></li>
-                <li><a href="?page=${page.maxPage}&sortType=${sortType}&${searchParams}">&gt;&gt;</a></li>
+                <li><a href="?page=${page.pages}&sortType=${sortType}&${searchParams}">&gt;&gt;</a></li>
          <%}else{%>
                 <li class="disabled"><a href="javascript:void(0);">&gt;</a></li>
                 <li class="disabled"><a href="javascript:void(0);">&gt;&gt;</a></li>

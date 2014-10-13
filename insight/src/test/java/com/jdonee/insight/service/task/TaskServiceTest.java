@@ -9,8 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import com.google.common.collect.Maps;
-import com.jdonee.framework.util.mybatis.PaginationInterceptor;
-import com.jdonee.framework.util.pagination.Page;
+import com.jdonee.framework.util.pagehelper.PageInfo;
 import com.jdonee.insight.account.service.AccountService;
 import com.jdonee.insight.task.dao.TaskDao;
 import com.jdonee.insight.task.dto.TaskDTO;
@@ -26,9 +25,6 @@ public class TaskServiceTest {
 	private TaskService taskService;
 
 	@Mock
-	private PaginationInterceptor mockPaginationInterceptor;
-
-	@Mock
 	private TaskDao mockTaskDao;
 
 	@Mock
@@ -36,15 +32,13 @@ public class TaskServiceTest {
 
 	@Test
 	public void findTaskPage() {
-		Page<TaskDTO> taskPage = new Page<TaskDTO>();
 		Map<String, Object> paramsMap = Maps.newHashMap();
-		taskPage.setParamsMap(paramsMap);
-		taskPage = taskService.findTaskPage(taskPage);
-		assertThat(taskPage.getResult()).hasSize(5);
+		PageInfo<TaskDTO> taskPage = taskService.findTaskPage(paramsMap, 1, 10);
+		assertThat(taskPage.getList()).hasSize(5);
 
-		assertThat(taskPage.getResult().get(0).getUser()).isNotNull();
-		assertThat(taskPage.getResult().get(0).getUser().getName()).isNotNull();
-		assertThat(taskPage.getResult().get(0).getUser().getLoginName()).isEmpty();
+		assertThat(taskPage.getList().get(0).getUser()).isNotNull();
+		assertThat(taskPage.getList().get(0).getUser().getName()).isNotNull();
+		assertThat(taskPage.getList().get(0).getUser().getLoginName()).isEmpty();
 	}
 
 }

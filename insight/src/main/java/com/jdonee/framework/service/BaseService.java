@@ -4,14 +4,13 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.jdonee.framework.dao.BaseDao;
 import com.jdonee.framework.util.commons.GenericsUtils;
 import com.jdonee.framework.util.mybatis.MyBatisTableName;
-import com.jdonee.framework.util.pagination.Page;
-import com.jdonee.framework.util.pagination.Page.Sort;
+import com.jdonee.framework.util.pagehelper.PageHelper;
+import com.jdonee.framework.util.pagehelper.PageInfo;
 
 /**
  * @author ZengAihui
@@ -80,21 +79,14 @@ public abstract class BaseService<T, PK extends Serializable> {
 		return baseDao.findListByParams(tableName, params);
 	}
 
-	public Page<T> findPage(Page<T> page) {
-		page.setDataCount(count(page.getParamsMap()));
-		RowBounds rowBounds = new RowBounds(page.getOffset(), page.getLimit());// 使用RowBounds计算偏移量和偏移总数
-		List<T> pageList = baseDao.findPageList(tableName, page.getParamsMap(), page.getPageSort(), rowBounds);
-		page.setResult(pageList);
-		return page;
+	public PageInfo<T> findPage(Map params, int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<T> pageList = baseDao.findListByParams(tableName, params);
+		return new PageInfo(pageList);
 	}
 
 	public int count(Map params) {
 		return baseDao.count(tableName, params);
-	}
-
-	public List<T> findPageList(Map params, Sort sort, int offset, int limit) {
-		RowBounds rowBounds = new RowBounds(offset, limit);// 使用RowBounds计算偏移量和偏移总数
-		return baseDao.findPageList(tableName, params, sort, rowBounds);
 	}
 
 }
