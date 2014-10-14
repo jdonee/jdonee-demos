@@ -42,6 +42,10 @@ public class Page<E> extends ArrayList<E> {
 	 */
 	private static final int NO_SQL_COUNT = -1;
 
+	public static final String PAGE_SIZE = "10";
+
+	public static final String PAGE_NUM = "1";
+
 	/**
 	 * 进行count查询
 	 */
@@ -53,6 +57,10 @@ public class Page<E> extends ArrayList<E> {
 	private int endRow;
 	private long total;
 	private int pages;
+
+	public Page() {
+		super();
+	}
 
 	public Page(int pageNum, int pageSize) {
 		this(pageNum, pageSize, SQL_COUNT);
@@ -89,6 +97,14 @@ public class Page<E> extends ArrayList<E> {
 
 	public List<E> getResult() {
 		return this;
+	}
+
+	public void setEndRow(int endRow) {
+		this.endRow = endRow;
+	}
+
+	public void setPages(int pages) {
+		this.pages = pages;
 	}
 
 	public int getPages() {

@@ -55,6 +55,10 @@ public class PageInfo<T> {
 	// 所有导航页号
 	private int[] navigatepageNums;
 
+	public PageInfo() {
+		super();
+	}
+
 	/**
 	 * 包装Page对象
 	 *
@@ -191,6 +195,10 @@ public class PageInfo<T> {
 
 	public List<T> getList() {
 		return list;
+	}
+
+	public void setList(List<T> list) {
+		this.list = list;
 	}
 
 	public int getFirstPage() {

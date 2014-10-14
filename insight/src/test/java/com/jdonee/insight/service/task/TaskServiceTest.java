@@ -9,7 +9,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import com.google.common.collect.Maps;
+import com.jdonee.framework.util.pagehelper.PageHelper;
 import com.jdonee.framework.util.pagehelper.PageInfo;
+import com.jdonee.framework.util.pagehelper.QuerySearch;
 import com.jdonee.insight.account.service.AccountService;
 import com.jdonee.insight.task.dao.TaskDao;
 import com.jdonee.insight.task.dto.TaskDTO;
@@ -28,12 +30,15 @@ public class TaskServiceTest {
 	private TaskDao mockTaskDao;
 
 	@Mock
+	private PageHelper mockPageHelper;
+
+	@Mock
 	private AccountService mockAccountService;
 
 	@Test
 	public void findTaskPage() {
 		Map<String, Object> paramsMap = Maps.newHashMap();
-		PageInfo<TaskDTO> taskPage = taskService.findTaskPage(paramsMap, 1, 10);
+		PageInfo<TaskDTO> taskPage = taskService.findTaskPage(new QuerySearch(paramsMap, 1, 10));
 		assertThat(taskPage.getList()).hasSize(5);
 
 		assertThat(taskPage.getList().get(0).getUser()).isNotNull();

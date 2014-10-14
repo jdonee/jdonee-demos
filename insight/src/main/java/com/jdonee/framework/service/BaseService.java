@@ -3,6 +3,7 @@ package com.jdonee.framework.service;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -79,9 +80,19 @@ public abstract class BaseService<T, PK extends Serializable> {
 		return baseDao.findListByParams(tableName, params);
 	}
 
+	public List<T> findSortListByParams(Map params, Set sorts) {
+		return baseDao.findSortListByParams(tableName, params, sorts);
+	}
+
 	public PageInfo<T> findPage(Map params, int pageNum, int pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
-		List<T> pageList = baseDao.findListByParams(tableName, params);
+		List<T> pageList = findListByParams(params);
+		return new PageInfo(pageList);
+	}
+
+	public PageInfo<T> findPage(Map params, int pageNum, int pageSize, Set sorts) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<T> pageList = findSortListByParams(params, sorts);
 		return new PageInfo(pageList);
 	}
 

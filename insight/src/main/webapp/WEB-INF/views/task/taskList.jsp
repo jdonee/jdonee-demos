@@ -44,7 +44,7 @@
 		</tbody>
 	</table>
 	
-	<tags:pagination page="${tasks}" paginationSize="5"/>
+	<tags:pagination page="${tasks}"/>
 
 	<div><a class="btn btn-default" href="${ctx}/task/create">创建任务</a></div>
 	<script>

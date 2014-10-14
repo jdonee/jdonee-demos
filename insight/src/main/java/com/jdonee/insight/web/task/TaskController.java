@@ -22,9 +22,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
+import com.jdonee.framework.util.pagehelper.Page;
 import com.jdonee.framework.util.pagehelper.PageInfo;
-import com.jdonee.framework.web.Servlets;
+import com.jdonee.framework.util.pagehelper.QuerySearch;
 import com.jdonee.insight.account.service.ShiroDbRealm.ShiroUser;
 import com.jdonee.insight.task.domain.Task;
 import com.jdonee.insight.task.dto.TaskDTO;
@@ -47,8 +50,6 @@ import com.jdonee.insight.task.service.TaskService;
 @Scope("prototype")
 public class TaskController {
 
-	private static final String PAGE_SIZE = "3";
-
 	private static Map<String, String> sortTypes = Maps.newLinkedHashMap();
 	static {
 		sortTypes.put("auto", "自动");
@@ -58,21 +59,23 @@ public class TaskController {
 	@Autowired
 	private TaskService taskService;
 
+	@Autowired
+	private QuerySearch querySearch;
+
 	@RequestMapping(method = RequestMethod.GET)
-	public String list(@RequestParam(value = "page", defaultValue = "1") int pageNumber,
-			@RequestParam(value = "page.size", defaultValue = PAGE_SIZE) int pageSize,
+	public String list(@RequestParam(value = "page", defaultValue = Page.PAGE_NUM) int pageNumber,
+			@RequestParam(value = "page.size", defaultValue = Page.PAGE_SIZE) int pageSize,
 			@RequestParam(value = "sortType", defaultValue = "auto") String sortType, Model model,
 			ServletRequest request) {
-		Map<String, Object> searchParams = Servlets.getParametersStartingWith(request, "search_");
-		Long userId = getCurrentUserId();
-		searchParams.put("userId", userId);
-		PageInfo<TaskDTO> tasks = taskService.findTaskPage(searchParams, pageNumber, pageSize);
+		querySearch.initSearchParams(ImmutableMap.of("userId", getCurrentUserId()), request, "search_");
+		querySearch.setPageNumber(pageNumber);
+		querySearch.setPageSize(pageSize);
+		querySearch.setSortParams(ImmutableSet.of(sortType));
+		PageInfo<TaskDTO> tasks = taskService.findTaskPage(querySearch);
 		model.addAttribute("tasks", tasks);
 		model.addAttribute("sortType", sortType);
 		model.addAttribute("sortTypes", sortTypes);
-		// 将搜索条件编码成字符串，用于排序，分页的URL
-		searchParams.remove("userId");
-		model.addAttribute("searchParams", Servlets.encodeParameterStringWithPrefix(searchParams, "search_"));
+		model.addAttribute("searchParams", querySearch.outputSearchParams(ImmutableSet.of("userId"), "search_"));
 		return "task/taskList";
 	}
 
@@ -129,5 +132,9 @@ public class TaskController {
 	private Long getCurrentUserId() {
 		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
 		return user.id;
+	}
+
+	public void setQuerySearch(QuerySearch querySearch) {
+		this.querySearch = querySearch;
 	}
 }

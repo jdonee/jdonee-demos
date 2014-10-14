@@ -25,6 +25,16 @@
   		</where>
   </sql>
   
+  <!--排序条件 -->
+  <sql id="sort">
+  	<if test="sortParams!=null">
+  			ORDER BY
+  			<foreach collection="sortParams" item="order" index="index" separator=",">  
+                     ${order}
+            </foreach>  
+  	</if>
+  </sql>
+  
   <!-- 增删改查 -->
   <insert id="save" parameterType="Task" useGeneratedKeys="true" keyProperty="id">
   		INSERT INTO ${tableName}
@@ -95,6 +105,13 @@
   	SELECT * FROM 
   		${tableName}
   	<include refid="condition"/>
+  </select>
+  
+  <select id="findSortListByParams" resultType="Task">
+  	SELECT * FROM 
+  		${tableName}
+  	<include refid="condition"/>
+  	<include refid="sort"/>
   </select>
   
   <!-- 批量增加\删除 -->

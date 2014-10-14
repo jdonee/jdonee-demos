@@ -1,13 +1,12 @@
 <%@tag pageEncoding="UTF-8"%>
 <%@ attribute name="page" type="com.jdonee.framework.util.pagehelper.PageInfo" required="true"%>
-<%@ attribute name="paginationSize" type="java.lang.Integer" required="true"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
 int current =  page.getPageNum();
-int begin = Math.max(1, current - paginationSize/2);
-int end = Math.min(begin + (paginationSize - 1), page.getPages());
+int begin = Math.max(1, current - page.getPageNum()/2);
+int end = Math.min(begin + (page.getPageNum() - 1), page.getPages());
 
 request.setAttribute("current", current);
 request.setAttribute("begin", begin);
