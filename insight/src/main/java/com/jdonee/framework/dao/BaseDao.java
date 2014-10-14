@@ -3,6 +3,7 @@ package com.jdonee.framework.dao;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
@@ -40,6 +41,11 @@ public interface BaseDao<T, PK extends Serializable> extends Serializable {
 	 * Mybatis常用的参数集合映射名称
 	 */
 	static final String MAPPER_PARAMS = "params";
+
+	/**
+	 * Mybatis排序集合映射名称
+	 */
+	static final String SORT_PARAMS = "sortParams";
 
 	/**
 	 * @Description: 保存对象
@@ -98,15 +104,22 @@ public interface BaseDao<T, PK extends Serializable> extends Serializable {
 	List<T> findListByParams(@Param(MAPPER_TABLE_NAME) String tableName,
 			@Param(MAPPER_PARAMS) Map<String, Object> params);
 
+	List<T> findListByParams(@Param(MAPPER_TABLE_NAME) String tableName,
+			@Param(MAPPER_PARAMS) Map<String, Object> params, RowBounds rowBounds);
+
 	/**
-	 * 分页集合
+	 * @Description: 根据参数列表获取实体对象列表(带排序)
 	 * 
 	 * @param tableName
 	 * @param params
-	 * @param rowBounds
+	 * @param sortParams
 	 * @return
 	 */
-	List<T> findPageList(@Param(MAPPER_TABLE_NAME) String tableName, @Param(MAPPER_PARAMS) Map<String, Object> params,
+	List<T> findSortListByParams(@Param(MAPPER_TABLE_NAME) String tableName,
+			@Param(MAPPER_PARAMS) Map<String, Object> params, @Param(SORT_PARAMS) Set<String> sortParams);
+
+	List<T> findSortListByParams(@Param(MAPPER_TABLE_NAME) String tableName,
+			@Param(MAPPER_PARAMS) Map<String, Object> params, @Param(SORT_PARAMS) Set<String> sortParams,
 			RowBounds rowBounds);
 
 	/**

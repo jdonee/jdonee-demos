@@ -7,9 +7,6 @@
      	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
      	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd"     	
 	default-lazy-init="true">
-	
-	<!-- mybatis 分页拦截 -->
-	<bean id="paginationInterceptor" class="com.jdonee.framework.util.mybatis.PaginationInterceptor" />
 
 	<!-- MyBatis配置 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -23,13 +20,6 @@
 		<property name="mapperLocations" value="classpath:/mybatis/*/*Dao.xml" />
 		<!-- Mybatis配置文件 -->
 		<property name="configLocation" value="classpath:/mybatis-config.xml" />
-		<!-- 自定义Mybatis插件 -->
-
-		<property name="plugins">
-			<list>
-				<ref bean="paginationInterceptor" />
-			</list>
-		</property>
 	</bean>
 
 	<!-- 扫描basePackage下所有以@MyBatisRepository标识的 接口 -->

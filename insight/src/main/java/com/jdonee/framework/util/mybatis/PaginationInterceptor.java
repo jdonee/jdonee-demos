@@ -49,6 +49,7 @@ public class PaginationInterceptor implements Interceptor, Serializable {
 		MetaObject metaStatementHandler = MetaObject.forObject(statementHandler, DEFAULT_OBJECT_FACTORY,
 				DEFAULT_OBJECT_WRAPPER_FACTORY);
 		RowBounds rowBounds = (RowBounds) metaStatementHandler.getValue("delegate.rowBounds");
+		// Sort sort = (Sort) metaStatementHandler.getValue("delegate.sort");
 		// 分离代理对象链(由于目标类可能被多个拦截器拦截，从而形成多次代理，通过下面的两次循环可以分离出最原始的的目标类)
 		while (metaStatementHandler.hasGetter("h")) {
 			Object object = metaStatementHandler.getValue("h");
@@ -78,10 +79,20 @@ public class PaginationInterceptor implements Interceptor, Serializable {
 			if (parameterObject == null) {
 				throw new Exception("parameterObject is null!");
 			} else {
-				String sql = boundSql.getSql();
-				// 重写sql
-				String pageSql = sql + " LIMIT " + rowBounds.getOffset() + "," + rowBounds.getLimit();
-				metaStatementHandler.setValue("delegate.boundSql.sql", pageSql);
+				StringBuffer sql = new StringBuffer(boundSql.getSql());
+				// 排序处理
+				// if (sort != null) {
+				// sql.append(" ORDER BY ");
+				// if (StringUtils.isNotEmpty(sort.getSortColumn())) {
+				// sql.append(sort.getSortColumn());
+				// } else {// 把驼峰字段转换为数据库下划线格式
+				// sql.append(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, sort.getSortItem()));
+				// }
+				// sql.append(sort.isDesc() ? " DESC " : " ASC");
+				// }
+				// 重写分页sql
+				sql.append(" LIMIT ").append(rowBounds.getOffset()).append(",").append(rowBounds.getLimit());
+				metaStatementHandler.setValue("delegate.boundSql.sql", sql.toString());
 				// 采用物理分页后，就不需要mybatis的内存分页了，所以重置下面的两个参数
 				metaStatementHandler.setValue("delegate.rowBounds.offset", RowBounds.NO_ROW_OFFSET);
 				metaStatementHandler.setValue("delegate.rowBounds.limit", RowBounds.NO_ROW_LIMIT);

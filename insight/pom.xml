@@ -11,31 +11,36 @@
 	<properties>
 		<!-- Plugin的属性定义 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jdk.version>1.6</jdk.version>
+		<jdk.version>1.7</jdk.version>
 
 		<!-- dependency的版本定义 -->
+		<spring.version>4.1.1.RELEASE</spring.version>
+		<cglib.version>3.1</cglib.version>
+		<ehcache.version>2.6.8</ehcache.version>
 		<shiro.version>1.2.2</shiro.version>
-		<hibernate-validator.version>5.0.3.Final</hibernate-validator.version>
-		<slf4j.version>1.7.6</slf4j.version>
-		<spring.version>4.0.6.RELEASE</spring.version>
-		<mybatis.version>3.2.7</mybatis.version>
-		<tomcat-jdbc.version>7.0.52</tomcat-jdbc.version>
+		<hibernate-validator.version>5.1.2.Final</hibernate-validator.version>
+		<slf4j.version>1.7.7</slf4j.version>
+		<mybatis.version>3.2.8</mybatis.version>
+		<tomcat-jdbc.version>8.0.14</tomcat-jdbc.version>
 		<sitemesh.version>2.4.2</sitemesh.version>
-		<jackson.version>2.4.1</jackson.version>
+		<jackson.version>2.4.3</jackson.version>
 		<logback.version>1.1.2</logback.version>
-		<commons-lang3.version>3.2.1</commons-lang3.version>
+		<commons-lang3.version>3.3.2</commons-lang3.version>
 		<commons-io.version>2.4</commons-io.version>
-		<guava.version>17.0</guava.version>
-		<joda-time.version>2.3</joda-time.version>
-		<dozer.version>5.4.0</dozer.version>
+		<guava.version>18.0</guava.version>
+		<joda-time.version>2.5</joda-time.version>
+		<dozer.version>5.5.1</dozer.version>
 		<freemarker.version>2.3.20</freemarker.version>
-		<aspectj.version>1.7.4</aspectj.version>
+		<aspectj.version>1.8.2</aspectj.version>
 		<junit.version>4.11</junit.version>
-		<assertj.version>1.5.0</assertj.version>
-		<mockito.version>1.9.5</mockito.version>
+		<assertj.version>1.7.0</assertj.version>
+		<mockito.version>1.10.8</mockito.version>
 		<jetty.version>8.1.15.v20140411</jetty.version>
-		<wro4j.version>1.7.6</wro4j.version>
-		<lombok.version>1.14.4</lombok.version>
+		<wro4j.version>1.7.7</wro4j.version>
+		<lombok.version>1.14.8</lombok.version>
+		<javamelody.version>1.52.0</javamelody.version>
+		<servlet.version>3.1.0</servlet.version>
+		<spymemcached.version>2.11.4</spymemcached.version>
 
 		<!-- 其它定义 -->
 		<jdbc.driver.groupId>mysql</jdbc.driver.groupId>
@@ -82,7 +87,7 @@
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
-			<version>2.2</version>
+			<version>${cglib.version}</version>
 		</dependency>
 		<!-- SPRING end -->
 		<!-- aop -->
@@ -121,6 +126,12 @@
 			<artifactId>mybatis</artifactId>
 			<version>${mybatis.version}</version>
 		</dependency>
+		<!--可选依赖，如果使用就会处理order by，如果不使用就不会处理order by-->
+		<dependency>
+		    <groupId>com.foundationdb</groupId>
+		    <artifactId>fdb-sql-parser</artifactId>
+		    <version>1.4.0</version>
+		</dependency>
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
@@ -143,7 +154,7 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
+			<version>${servlet.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -194,7 +205,7 @@
 		<dependency>
 			<groupId>net.bull.javamelody</groupId>
 			<artifactId>javamelody-core</artifactId>
-			<version>1.52.0</version>
+			<version>${javamelody.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<!-- itext, option to add PDF export -->
@@ -319,7 +330,7 @@
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
-			<version>1.9.1</version>
+			<version>1.9.2</version>
 			<exclusions>
 				<exclusion>
 					<groupId>commons-logging</groupId>
@@ -395,7 +406,7 @@
 		<dependency>
 			<groupId>net.spy</groupId>
 			<artifactId>spymemcached</artifactId>
-			<version>2.10.5</version>
+			<version>${spymemcached.version}</version>
 		</dependency>
 
 		<!-- memcached simulator -->
@@ -449,7 +460,7 @@
 			<dependency>
 				<groupId>net.sf.ehcache</groupId>
 				<artifactId>ehcache-core</artifactId>
-				<version>2.6.8</version>
+				<version>${ehcache.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -479,8 +490,8 @@
 			<!-- 热部署插件 -->
 			<plugin>
 				<groupId>org.zeroturnaround</groupId>
-				<artifactId>javarebel-maven-plugin</artifactId>
-				<version>1.0.5</version>
+				<artifactId>jrebel-maven-plugin</artifactId>
+				<version>1.1.5</version>
 				<executions>
 					<execution>
 						<id>generate-rebel-xml</id>
@@ -670,8 +681,8 @@
 								<pluginExecution>
 									<pluginExecutionFilter>
 										<groupId>org.zeroturnaround</groupId>
-										<artifactId>javarebel-maven-plugin</artifactId>
-										<versionRange>[1.0.5,)</versionRange>
+										<artifactId>jrebel-maven-plugin</artifactId>
+										<versionRange>[1.1.5,)</versionRange>
 										<goals>
 											<goal>generate</goal>
 										</goals>

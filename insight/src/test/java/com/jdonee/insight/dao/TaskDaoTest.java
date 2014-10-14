@@ -5,14 +5,14 @@ import static org.assertj.core.api.Assertions.*;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.RowBounds;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.jdonee.framework.util.pagination.Page;
+import com.jdonee.framework.util.pagehelper.PageHelper;
+import com.jdonee.framework.util.pagehelper.PageInfo;
 import com.jdonee.insight.data.TaskData;
 import com.jdonee.insight.junit.BaseJunitSTTestCase;
 import com.jdonee.insight.task.dao.TaskDao;
@@ -25,20 +25,17 @@ public class TaskDaoTest extends BaseJunitSTTestCase<Task> {
 
 	@Test
 	public void getPage() throws Exception {
-		Page<Task> taskPage = new Page();
 		Map<String, Object> paramsMap = Maps.newHashMap();
-		taskPage.setParamsMap(paramsMap);
-		List<Task> tasks = taskDao.findPageList(tableName, taskPage.getParamsMap(), new RowBounds(taskPage.getOffset(),
-				taskPage.getLimit()));
-		taskPage.setResult(tasks);
-		assertThat(taskPage.getResult()).hasSize(5);
-		assertThat(taskPage.getResult().get(0).getId()).isEqualTo(1);
+		PageHelper.startPage(1, 10);
+		List<Task> tasks = taskDao.findListByParams(tableName, paramsMap);
+		PageInfo<Task> taskPage = new PageInfo(tasks);
+		assertThat(taskPage.getList()).hasSize(5);
+		assertThat(taskPage.getList().get(0).getId()).isEqualTo(1);
 		paramsMap.put("id", 99999L);
-		tasks = taskDao.findPageList(tableName, taskPage.getParamsMap(),
-				new RowBounds(taskPage.getOffset(), taskPage.getLimit()));
-		taskPage.setResult(tasks);
-		assertThat(taskPage.getResult()).isEmpty();
-		assertThat(taskPage.getResult()).isEmpty();
+		PageHelper.startPage(1, 10);
+		tasks = taskDao.findListByParams(tableName, paramsMap);
+		taskPage = new PageInfo(tasks);
+		assertThat(taskPage.getList()).hasSize(0);
 	}
 
 	@Test

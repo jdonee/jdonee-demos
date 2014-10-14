@@ -34,7 +34,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		<c:forEach items="${tasks.result}" var="task">
+		<c:forEach items="${tasks.list}" var="task">
 			<tr>
 				<td><a href="${ctx}/task/update/${task.id}">${task.title}</a></td>
 				<td>${task.user.name}</td>
@@ -44,7 +44,7 @@
 		</tbody>
 	</table>
 	
-	<tags:pagination page="${tasks}" paginationSize="5"/>
+	<tags:pagination page="${tasks}"/>
 
 	<div><a class="btn btn-default" href="${ctx}/task/create">创建任务</a></div>
 	<script>
