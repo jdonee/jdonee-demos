@@ -500,7 +500,7 @@
 				<configuration>
 					<warName>${project.build.finalName}</warName>
 					<warSourceExcludes>**/webdefault.xml</warSourceExcludes>
-					<packagingExcludes>**/webdefault.xml</packagingExcludes>
+					<packagingExcludes>**/webdefault.xml,**/context.xml</packagingExcludes>
 					<webResources>
 						<resource>
 							<filtering>true</filtering>
@@ -606,6 +606,40 @@
 						<contextPath>/${project.artifactId}</contextPath>
 					</webAppConfig>
 				</configuration>
+			</plugin>
+			
+			<!-- tomcat jndi -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<mode>context</mode>
+					<contextFile>src/main/resources/context.xml</contextFile>
+					<contextReloadable>false</contextReloadable>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>${jdbc.driver.version}</version>
+				   </dependency>
+					<dependency>
+						<groupId>commons-collections</groupId>
+						<artifactId>commons-collections</artifactId>
+						<version>3.2.1</version>
+					</dependency>
+					<dependency>
+				    <groupId>commons-pool</groupId>
+				    <artifactId>commons-pool</artifactId>
+				    <version>1.6</version>
+				</dependency>
+					<dependency>
+						<groupId>commons-dbcp</groupId>
+						<artifactId>commons-dbcp</artifactId>
+						<version>1.4</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 
 			<!-- resources插件 -->
