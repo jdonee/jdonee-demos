@@ -36,6 +36,8 @@ public class QuerySearch {
 	 */
 	private Set<String> sortParams;
 
+	private static final String SEARCH_PREFIX = "search_";
+
 	public QuerySearch() {
 		super();
 	}
@@ -88,28 +90,26 @@ public class QuerySearch {
 	/**
 	 * 整合自定义集合
 	 * 
-	 * @param localParams
+	 * @param localParams 后台需要控制的条件
 	 * @param request
-	 * @param prefix
 	 */
-	public void initSearchParams(Map localParams, ServletRequest request, String prefix) {
+	public void initSearchParams(Map localParams, ServletRequest request) {
 		searchParams = Maps.newHashMap();
-		searchParams.putAll(Servlets.getParametersStartingWith(request, prefix));
+		searchParams.putAll(Servlets.getParametersStartingWith(request, SEARCH_PREFIX));
 		searchParams.putAll(localParams);
 	}
 
 	/**
 	 * 输出自定义集合
 	 * 
-	 * @param removeKey
-	 * @param prefix
+	 * @param removeKey 不要显示到页面上的条件
 	 * @return
 	 */
-	public String outputSearchParams(Set<String> removeKey, String prefix) {
+	public String outputSearchParams(Set<String> removeKey) {
 		for (String key : removeKey) {
 			searchParams.remove(key);
 		}
-		return Servlets.encodeParameterStringWithPrefix(searchParams, prefix);
+		return Servlets.encodeParameterStringWithPrefix(searchParams, SEARCH_PREFIX);
 	}
 
 	/**

@@ -67,7 +67,7 @@ public class TaskController {
 			@RequestParam(value = "page.size", defaultValue = Page.PAGE_SIZE) int pageSize,
 			@RequestParam(value = "sortType", defaultValue = "auto") String sortType, Model model,
 			ServletRequest request) {
-		querySearch.initSearchParams(ImmutableMap.of("userId", getCurrentUserId()), request, "search_");
+		querySearch.initSearchParams(ImmutableMap.of("userId", getCurrentUserId()), request);
 		querySearch.setPageNumber(pageNumber);
 		querySearch.setPageSize(pageSize);
 		querySearch.setSortParams(ImmutableSet.of(sortType));
@@ -75,7 +75,7 @@ public class TaskController {
 		model.addAttribute("tasks", tasks);
 		model.addAttribute("sortType", sortType);
 		model.addAttribute("sortTypes", sortTypes);
-		model.addAttribute("searchParams", querySearch.outputSearchParams(ImmutableSet.of("userId"), "search_"));
+		model.addAttribute("searchParams", querySearch.outputSearchParams(ImmutableSet.of("userId")));
 		return "task/taskList";
 	}
 
