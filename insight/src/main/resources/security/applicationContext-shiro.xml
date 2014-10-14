@@ -27,6 +27,7 @@
 				/logout = logout
 				/bundle/** = anon
 				/static/** = anon
+				/servlet/** = anon
 				/api/v1/** = anon
 				/register/** = anon
 				/error/** = anon
