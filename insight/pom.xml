@@ -16,7 +16,7 @@
 		<!-- dependency的版本定义 -->
 		<spring.version>4.1.1.RELEASE</spring.version>
 		<cglib.version>3.1</cglib.version>
-		<ehcache.version>2.6.9</ehcache.version>
+		<ehcache.version>2.6.8</ehcache.version>
 		<shiro.version>1.2.2</shiro.version>
 		<hibernate-validator.version>5.1.2.Final</hibernate-validator.version>
 		<slf4j.version>1.7.7</slf4j.version>
@@ -511,7 +511,7 @@
 				<configuration>
 					<warName>${project.build.finalName}</warName>
 					<warSourceExcludes>**/webdefault.xml</warSourceExcludes>
-					<packagingExcludes>**/webdefault.xml</packagingExcludes>
+					<packagingExcludes>**/webdefault.xml,**/context.xml</packagingExcludes>
 					<webResources>
 						<resource>
 							<filtering>true</filtering>
@@ -617,6 +617,40 @@
 						<contextPath>/${project.artifactId}</contextPath>
 					</webAppConfig>
 				</configuration>
+			</plugin>
+			
+			<!-- tomcat jndi -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<mode>context</mode>
+					<contextFile>src/main/resources/context.xml</contextFile>
+					<contextReloadable>false</contextReloadable>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>${jdbc.driver.version}</version>
+				   </dependency>
+					<dependency>
+						<groupId>commons-collections</groupId>
+						<artifactId>commons-collections</artifactId>
+						<version>3.2.1</version>
+					</dependency>
+					<dependency>
+				    <groupId>commons-pool</groupId>
+				    <artifactId>commons-pool</artifactId>
+				    <version>1.6</version>
+				</dependency>
+					<dependency>
+						<groupId>commons-dbcp</groupId>
+						<artifactId>commons-dbcp</artifactId>
+						<version>1.4</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 
 			<!-- resources插件 -->
