@@ -1,5 +1,7 @@
 package com.jdonee.insight.task.dto;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
@@ -7,6 +9,7 @@ import lombok.Setter;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import com.jdonee.framework.service.BaseDTO;
 import com.jdonee.insight.account.dto.UserDTO;
 
 /**
@@ -17,9 +20,9 @@ import com.jdonee.insight.account.dto.UserDTO;
  */
 @Getter
 @Setter
-public class TaskDTO {
+public class TaskDTO extends BaseDTO implements Serializable {
 
-	private Long id;
+	private static final long serialVersionUID = 1L;
 	@NotNull
 	private String title;
 	private String description;
