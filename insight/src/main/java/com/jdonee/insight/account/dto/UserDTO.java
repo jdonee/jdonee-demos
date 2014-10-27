@@ -5,12 +5,16 @@
  *******************************************************************************/
 package com.jdonee.insight.account.dto;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import com.jdonee.framework.service.BaseDTO;
 
 /**
  * 返回XML格式
@@ -21,9 +25,9 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 @Getter
 @Setter
 @XmlRootElement(name = "User")
-public class UserDTO {
+public class UserDTO extends BaseDTO implements Serializable {
 
-	private Long id;
+	private static final long serialVersionUID = 1L;
 	private String loginName;
 	private String name;
 	private String email;
